@@ -12,10 +12,10 @@ public class AdapterPager  extends FragmentPagerAdapter {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: return new FirstFragement();
-                case 1: return new SecondFragement();}
+                case 0: return new FragemntMapsChallenges();
+                case 1: return new FragementListChallenges();}
                 // lazem return
-            return new SecondFragement();
+            return new FragementListChallenges();
         }
         @Override
         public CharSequence getPageTitle(int position){

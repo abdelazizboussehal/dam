@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class myAdapter extends ArrayAdapter<String> {
+public class AdapterListChallenges extends ArrayAdapter<String> {
         Activity activity;
         int itemResourceId;
         List<String> items;
 
-    public myAdapter(Activity activity, int itemResourceId, List<String> items) {
+    public AdapterListChallenges(Activity activity, int itemResourceId, List<String> items) {
         super(activity, itemResourceId, items);
         this.activity = activity;
         this.itemResourceId = itemResourceId;

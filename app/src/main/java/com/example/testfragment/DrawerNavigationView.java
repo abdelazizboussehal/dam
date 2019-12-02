@@ -4,7 +4,6 @@ package com.example.testfragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
@@ -47,10 +46,10 @@ public class DrawerNavigationView extends AppCompatActivity implements Navigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_first:
-                fm.beginTransaction().replace(R.id.frame_layout, new FirstDrawerFragement()).commit();
+                fm.beginTransaction().replace(R.id.frame_layout, new FragementProfile()).commit();
                 return true;
             case R.id.item_second:
-                fm.beginTransaction().replace(R.id.frame_layout, new SecondDrawerFragement()).commit();
+                fm.beginTransaction().replace(R.id.frame_layout, new FragementChallengesContiner()).commit();
                 return true;
 
         }

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item_first"
+        android:icon="@drawable/profile_black_24dp"
+        android:title="@string/profile" />
+    <item
+        android:id="@+id/item_second"
+        android:icon="@drawable/challenges_black_24dp"
+        android:title="@string/consulter_challenges" />
+
+</menu>

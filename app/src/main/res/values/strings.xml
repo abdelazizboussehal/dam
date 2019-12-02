@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestFragment</string>
+    <string name="app_name">Trash App</string>
     <string name="maps">Position map</string>
     <string name="challenges">List challenge</string>
     <string name="profile">profile</string>

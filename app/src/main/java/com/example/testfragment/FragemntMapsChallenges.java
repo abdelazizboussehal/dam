@@ -15,6 +15,7 @@ public class FragemntMapsChallenges extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("maps challenegs");
         return inflater.inflate(R.layout.fragement_maps_challenges, container, false);
     }
 

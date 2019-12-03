@@ -16,7 +16,7 @@ public class FragementChallengesContiner extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Second title");
+        getActivity().setTitle("Challenges");
         View view= inflater.inflate(R.layout.fragment_challenges_container, container, false);
         ViewPager pagesVP = (ViewPager) view.findViewById(R.id.view_pager);
         TabLayout slidingTL = (TabLayout) view.findViewById(R.id.table_layout);

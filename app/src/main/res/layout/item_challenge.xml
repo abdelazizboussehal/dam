@@ -11,12 +11,11 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
-        <ImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_chlng"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/profile_black_24dp"
+
 
             />
         <TextView

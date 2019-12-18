@@ -56,11 +56,11 @@ public class FragemntMapsChallenges extends Fragment {
     }
 
     TileRendererLayer tileRendererLayer;
- /*   @Override
+    @Override
     public void onStart() {
         super.onStart();
-        File file = new File(Environment.getExternalStorageDirectory(),"constantine.map");
-        MapDataStore mapDataStore = new MapFile(file);
+        File file = new File(Environment.getExternalStorageDirectory(),"/maps/constantine.map");
+       MapDataStore mapDataStore = new MapFile(file);
         tileRendererLayer = new TileRendererLayer(tileCache, mapDataStore,
                 mapView.getModel().mapViewPosition,
                 AndroidGraphicFactory.INSTANCE);
@@ -69,5 +69,11 @@ public class FragemntMapsChallenges extends Fragment {
         mapView.setCenter(new LatLong(36.245138, 6.570929));
         mapView.setZoomLevel((byte) 19);
     }
-*/
+
+ @Override
+    public void onDestroy() {
+     mapView.destroyAll();
+     AndroidGraphicFactory.clearResourceMemoryCache();
+     super.onDestroy();
+ }
 }

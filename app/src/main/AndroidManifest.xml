@@ -20,17 +20,19 @@
         <activity android:name=".RecupererPostion" />
         <activity
             android:name=".DrawerNavigationView">
+
+        </activity>
+        <activity
+            android:name=".CreeCompte" />
+        <activity
+            android:name=".SplashActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CreeCompte" />
-        <activity
-            android:name=".SplashActivity"
-            ></activity>
         <activity
             android:name=".Authentification"></activity>
     </application>

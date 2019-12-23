@@ -6,12 +6,15 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
-
 import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.layer.cache.TileCache;
@@ -19,10 +22,9 @@ import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
-
-
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragemntMapsChallenges extends Fragment {
 
@@ -76,4 +78,21 @@ public class FragemntMapsChallenges extends Fragment {
      AndroidGraphicFactory.clearResourceMemoryCache();
      super.onDestroy();
  }
+    public List<LatLong> getPathFromJson(String json){
+        try{
+            List<LatLong> path = new ArrayList<>();
+            JSONObject jsonObj = new JSONObject(json);
+            JSONArray maneuversObj = jsonObj.getJSONObject("route")
+                    .getJSONArray("legs").getJSONObject(0)
+                    .getJSONArray("maneuvers");
+            for(int i=0; i < maneuversObj.length(); i++){
+                JSONObject obj = maneuversObj.getJSONObject(i)
+                        .getJSONObject("startPoint");
+                LatLong point=
+                        new LatLong(obj.getDouble("lat"),obj.getDouble("lng"));
+                path.add(point);
+            }
+            return path;
+        } catch (JSONException e) {e.printStackTrace(); return null;}
+    }
 }

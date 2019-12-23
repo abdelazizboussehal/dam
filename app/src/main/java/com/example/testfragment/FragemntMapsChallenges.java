@@ -1,13 +1,17 @@
 package com.example.testfragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import androidx.fragment.app.Fragment;
 
+import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
@@ -15,6 +19,7 @@ import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.layer.cache.TileCache;
+import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
@@ -52,6 +57,17 @@ public class FragemntMapsChallenges extends Fragment {
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 mapView.getModel().frameBufferModel.getOverdrawFactor());
 
+        Button button=(Button) view.findViewById(R.id.btMaposision);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LatLong latLong=new LatLong(FragementProfile.y,FragementProfile.x);
+                drawMarker(R.drawable.ic_place_black_24dp,latLong);
+                mapView.setCenter(latLong);
+                mapView.setZoomLevel((byte) 19);
+            }
+        });
+
         return view;
     }
 
@@ -76,4 +92,12 @@ public class FragemntMapsChallenges extends Fragment {
      AndroidGraphicFactory.clearResourceMemoryCache();
      super.onDestroy();
  }
+
+    public void drawMarker(int resourceId, LatLong geoPoint){
+        Drawable drawable = getResources().getDrawable(resourceId);
+        Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        bitmap.scaleTo(130,130);
+        Marker marker = new Marker(geoPoint, bitmap, 0, -bitmap.getHeight() / 2);
+        mapView.getLayerManager().getLayers().add(marker);
+    }
 }

@@ -19,7 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 public class FragementProfile extends Fragment {
-    double x=0, y=0, z=0;
+     static double x=0, y=0, z=0;
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void recupererPosition() {
         LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);

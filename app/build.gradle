@@ -35,4 +35,5 @@ dependencies {
     implementation files('libs\\mapsforge-map-0.6.1.jar')
     implementation files('libs\\mapsforge-map-android-0.6.1.jar')
     implementation files('libs\\mapsforge-map-reader-0.6.1.jar')
+    implementation 'com.android.volley:volley:1.1.1'
 }

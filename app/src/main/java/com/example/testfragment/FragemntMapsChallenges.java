@@ -1,5 +1,6 @@
 package com.example.testfragment;
 
+import android.app.DownloadManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,9 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
@@ -28,9 +41,13 @@ import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.android.volley.Request.Method.GET;
 
 public class FragemntMapsChallenges extends Fragment {
-
+    List<LatLong>  latLongs;
     MapView mapView; TileCache tileCache;
 
     public FragemntMapsChallenges(){
@@ -61,9 +78,11 @@ public class FragemntMapsChallenges extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                desingerChemin();
                 LatLong latLong=new LatLong(FragementProfile.y,FragementProfile.x);
                 drawMarker(R.drawable.ic_place_black_24dp,latLong);
-                mapView.setCenter(latLong);
+                mapView.setCenter(latLong
+                );
                 mapView.setZoomLevel((byte) 19);
             }
         });
@@ -99,5 +118,48 @@ public class FragemntMapsChallenges extends Fragment {
         bitmap.scaleTo(130,130);
         Marker marker = new Marker(geoPoint, bitmap, 0, -bitmap.getHeight() / 2);
         mapView.getLayerManager().getLayers().add(marker);
+    }
+
+    public  void desingerChemin(){
+        String url = "https://www.mapquestapi.com/directions/v2/route?key=deamSBfbxULjOkFvP9dW1QiAKewVYxVg&json={locations:[{latLng:{lat:36.2597,lng:6.7084}},{latLng:{lat:36.24477,lng:6.57030}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                        latLongs=getPathFromJson(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    public List<LatLong> getPathFromJson(String json){
+        try{
+            List<LatLong> path = new ArrayList<>();
+            JSONObject jsonObj = new JSONObject(json);
+            JSONArray maneuversObj = jsonObj.getJSONObject("route")
+                    .getJSONArray("legs").getJSONObject(0)
+                    .getJSONArray("maneuvers");
+            for(int i=0; i < maneuversObj.length(); i++){
+                JSONObject obj = maneuversObj.getJSONObject(i)
+                        .getJSONObject("startPoint");
+                LatLong point=
+                        new LatLong(obj.getDouble("lat"),obj.getDouble("lng"));
+                path.add(point);
+            }
+            return path;
+        } catch (JSONException e) {e.printStackTrace(); return null;}
     }
 }

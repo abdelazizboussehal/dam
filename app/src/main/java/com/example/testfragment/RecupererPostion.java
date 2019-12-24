@@ -15,8 +15,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class RecupererPostion extends AppCompatActivity {
-     static double x=0, y=0, z=0;
-
+    double x=0, y=0, z=0;
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void recupererPosition() {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

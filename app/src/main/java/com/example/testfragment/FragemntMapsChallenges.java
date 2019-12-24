@@ -1,6 +1,9 @@
 package com.example.testfragment;
 
 import android.app.DownloadManager;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +28,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.mapsforge.core.graphics.Bitmap;
+import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.util.AndroidUtil;
 
@@ -33,6 +38,7 @@ import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.datastore.MapDataStore;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.overlay.Marker;
+import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
@@ -40,16 +46,14 @@ import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.android.volley.Request.Method.GET;
 
 public class FragemntMapsChallenges extends Fragment {
     List<LatLong>  latLongs;
     MapView mapView; TileCache tileCache;
-
+    Polyline polyline;
     public FragemntMapsChallenges(){
         super();
     }
@@ -78,8 +82,10 @@ public class FragemntMapsChallenges extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                desingerChemin();
+
                 LatLong latLong=new LatLong(FragementProfile.y,FragementProfile.x);
+                LatLong arrever=new LatLong(36.24477,6.57030);
+                desingerChemin(latLong,arrever);
                 drawMarker(R.drawable.ic_place_black_24dp,latLong);
                 mapView.setCenter(latLong
                 );
@@ -116,12 +122,26 @@ public class FragemntMapsChallenges extends Fragment {
         Drawable drawable = getResources().getDrawable(resourceId);
         Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.scaleTo(130,130);
-        Marker marker = new Marker(geoPoint, bitmap, 0, -bitmap.getHeight() / 2);
+        Marker marker = new Marker(geoPoint, bitmap, 0, -bitmap.getHeight() / 2){
+            @Override
+            public boolean onTap(LatLong geoPoint, Point viewPos, Point tapPoint){
+                if (contains(viewPos, tapPoint)) {
+                    LatLong dep=new LatLong(36.26888,6.70143);
+                    LatLong arr=new LatLong(36.3598,6.6044);
+                    mapView.getLayerManager().getLayers().remove(polyline);
+                    desingerChemin(dep,arr);
+                    return true;
+                }
+                return false;
+            }
+
+        };
+
         mapView.getLayerManager().getLayers().add(marker);
     }
 
-    public  void desingerChemin(){
-        String url = "https://www.mapquestapi.com/directions/v2/route?key=deamSBfbxULjOkFvP9dW1QiAKewVYxVg&json={locations:[{latLng:{lat:36.2597,lng:6.7084}},{latLng:{lat:36.24477,lng:6.57030}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
+    public  void desingerChemin(LatLong depart,LatLong arrever){
+        String url = "https://www.mapquestapi.com/directions/v2/route?key=deamSBfbxULjOkFvP9dW1QiAKewVYxVg&json={locations:[{latLng:{lat:"+depart.latitude+",lng:"+depart.longitude+"}},{latLng:{lat:"+arrever.latitude+",lng:"+arrever.longitude+"}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -130,9 +150,8 @@ public class FragemntMapsChallenges extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                         latLongs=getPathFromJson(response);
-
+                        drawPath(latLongs);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -162,4 +181,19 @@ public class FragemntMapsChallenges extends Fragment {
             return path;
         } catch (JSONException e) {e.printStackTrace(); return null;}
     }
+    public void drawPath(List<LatLong> path){
+        org.mapsforge.core.graphics.Paint paint
+                =  AndroidGraphicFactory.INSTANCE.createPaint();
+        paint.setColor(Color.RED);
+        paint.setStrokeWidth(15);
+        paint.setStyle(Style.STROKE);
+        polyline = new Polyline((org.mapsforge.core.graphics.Paint) paint,AndroidGraphicFactory.INSTANCE);
+        List<LatLong> coordinateList = polyline.getLatLongs();
+        for(LatLong geoPoint : path)
+            coordinateList.add(geoPoint);
+        mapView.getLayerManager().getLayers().add(polyline);
+
+
+    }
+
 }

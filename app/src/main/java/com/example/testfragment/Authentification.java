@@ -14,6 +14,7 @@ public class Authentification extends AppCompatActivity {
     Button btConnecteVous;
     EditText username , password;
     String stringuUername,stringpassword;
+   // ActionProcessButton btnSignIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,10 @@ public class Authentification extends AppCompatActivity {
         });
          username=(EditText) findViewById(R.id.etxt_email);
          password=(EditText) findViewById(R.id.etxt_password);
+
+         // btnSignIn = (ActionProcessButton) findViewById(R.id.btnSignIn);
+        //Bundle extras = getIntent().getExtras();
+        //btnSignIn.setMode(ActionProcessButton.Mode.PROGRESS);
         btConnecteVous=(Button)findViewById(R.id.bt_connectez_vous);
         btConnecteVous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,12 +40,14 @@ public class Authentification extends AppCompatActivity {
                 stringuUername=username.getText().toString();
                 stringpassword=password.getText().toString();
                 if(stringpassword.equals("aziz") && stringuUername.equals("aziz")){
+
                     Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
                     startActivity(intent);
-
+                    //btnSignIn.setProgress(1);
                 }
                 else
                 {
+                   // btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
                     Toast.makeText(getApplicationContext(),"false",Toast.LENGTH_LONG).show();
                 }
             }

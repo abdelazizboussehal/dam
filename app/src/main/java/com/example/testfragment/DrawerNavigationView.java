@@ -33,7 +33,7 @@ public class DrawerNavigationView extends AppCompatActivity implements Navigatio
         fm = getSupportFragmentManager();
         nav.setNavigationItemSelectedListener(this);
         nav.getMenu().performIdentifierAction(R.id.item_first, 0);
-        nav.getMenu().performIdentifierAction(R.id.item_second, 0);
+
 
     }
 
@@ -52,6 +52,9 @@ public class DrawerNavigationView extends AppCompatActivity implements Navigatio
                 return true;
             case R.id.item_second:
                 fm.beginTransaction().replace(R.id.frame_layout, new FragementChallengesContiner()).commit();
+                return true;
+            case R.id.item_mes_challenge:
+                fm.beginTransaction().replace(R.id.frame_layout, new FragementListMesChallenges()).commit();
                 return true;
 
         }

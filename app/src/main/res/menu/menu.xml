@@ -8,5 +8,9 @@
         android:id="@+id/item_second"
         android:icon="@drawable/challenges_black_24dp"
         android:title="@string/consulter_challenges" />
+    <item
+        android:id="@+id/item_mes_challenge"
+        android:icon="@drawable/challenges_black_24dp"
+        android:title="@string/consulter_meschallenges" />
 
 </menu>

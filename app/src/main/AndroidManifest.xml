@@ -17,7 +17,6 @@
         android:roundIcon="@drawable/ic_trash"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestBerk"></activity>
         <activity android:name=".RecupererPostion" />
         <activity
             android:name=".DrawerNavigationView">

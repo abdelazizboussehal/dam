@@ -2,6 +2,7 @@ package com.example.testfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,13 @@ public class Authentification extends AppCompatActivity {
             public void onClick(View view) {
                 stringuUername=username.getText().toString();
                 stringpassword=password.getText().toString();
+                if(TextUtils.isEmpty(stringuUername)||TextUtils.isEmpty(stringpassword)) {
+                    if(TextUtils.isEmpty(stringuUername))
+                    username.setError("le champ est vide");
+                    if(TextUtils.isEmpty(stringpassword))
+                        password.setError("le champ est vide");
+                    return;
+                }
                 if(stringpassword.equals("aziz") && stringuUername.equals("aziz")){
                     Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
                     startActivity(intent);

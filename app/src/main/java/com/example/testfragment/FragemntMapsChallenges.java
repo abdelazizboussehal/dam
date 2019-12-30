@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -55,6 +56,7 @@ public class FragemntMapsChallenges extends Fragment {
     List<LatLong>  latLongs;
     MapView mapView; TileCache tileCache;
     static Polyline polyline;
+    TextView textViewDistance;
     public FragemntMapsChallenges(){
         super();
     }
@@ -65,7 +67,8 @@ public class FragemntMapsChallenges extends Fragment {
         getActivity().setTitle("maps challenegs");
         AndroidGraphicFactory.createInstance(getActivity().getApplication());
         View view=inflater.inflate(R.layout.fragement_maps_challenges, container, false);
-
+        textViewDistance=(TextView)view.findViewById(R.id.distance);
+        textViewDistance.setVisibility(View.INVISIBLE);
         mapView = (MapView) view.findViewById(R.id.mapId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mapView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -82,7 +85,6 @@ public class FragemntMapsChallenges extends Fragment {
         if(FragementProfile.y!=0&&FragementProfile.x!=0) {
             LatLong latLong = new LatLong(FragementProfile.y, FragementProfile.x);
             LatLong arrever = new LatLong(36.24477, 6.57030);
-            desingerChemin(latLong, arrever);
             drawMarker(R.drawable.ic_place_black_24dp, latLong);
             mapView.setCenter(latLong
             );
@@ -164,8 +166,11 @@ public class FragemntMapsChallenges extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        double d=getDestenceFromJson(response);
                         latLongs=getPathFromJson(response);
                         drawPath(latLongs);
+                        textViewDistance.setText("distance "+d+" km");
+                        textViewDistance.setVisibility(View.VISIBLE);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -195,6 +200,22 @@ public class FragemntMapsChallenges extends Fragment {
             return path;
         } catch (JSONException e) {e.printStackTrace(); return null;}
     }
+
+    public double getDestenceFromJson(String json){
+        try{
+            List<LatLong> path = new ArrayList<>();
+            JSONObject jsonObj = new JSONObject(json);
+            double maneuversObj = jsonObj.getJSONObject("route")
+                    .getDouble("distance");
+
+            return maneuversObj;
+        }
+        catch (JSONException e) {e.printStackTrace();
+        return -1;}
+    }
+
+
+
     public void drawPath(List<LatLong> path){
         if(polyline!=null){
             mapView.getLayerManager().getLayers().remove(polyline);
@@ -209,8 +230,7 @@ public class FragemntMapsChallenges extends Fragment {
         for(LatLong geoPoint : path)
             coordinateList.add(geoPoint);
         mapView.getLayerManager().getLayers().add(polyline);
-
-
     }
+
 
 }

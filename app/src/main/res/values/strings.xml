@@ -4,4 +4,5 @@
     <string name="challenges">List challenge</string>
     <string name="profile">profile</string>
     <string name="consulter_challenges">challenges</string>
+    <string name="consulter_meschallenges">Mes challenges</string>
 </resources>

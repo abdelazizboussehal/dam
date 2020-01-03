@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -43,9 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragemntMapsChallenges extends Fragment {
+    static Marker ancienMarker=null;
     List<LatLong>  latLongs;
     MapView mapView; TileCache tileCache;
-    Polyline polyline;
+    static Polyline polyline;
+    TextView textViewDistance;
     public FragemntMapsChallenges(){
         super();
     }
@@ -56,7 +59,8 @@ public class FragemntMapsChallenges extends Fragment {
         getActivity().setTitle("maps challenegs");
         AndroidGraphicFactory.createInstance(getActivity().getApplication());
         View view=inflater.inflate(R.layout.fragement_maps_challenges, container, false);
-
+        textViewDistance=(TextView)view.findViewById(R.id.distance);
+        textViewDistance.setVisibility(View.INVISIBLE);
         mapView = (MapView) view.findViewById(R.id.mapId);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mapView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -66,22 +70,31 @@ public class FragemntMapsChallenges extends Fragment {
         mapView.setBuiltInZoomControls(true);
         mapView.setZoomLevelMin((byte) 10);
         mapView.setZoomLevelMax((byte) 20);
+
         tileCache = AndroidUtil.createTileCache(getActivity(), "mapcache",
                 mapView.getModel().displayModel.getTileSize(), 1f,
                 mapView.getModel().frameBufferModel.getOverdrawFactor());
-
+        if(FragementProfile.y!=0&&FragementProfile.x!=0) {
+            LatLong latLong = new LatLong(FragementProfile.y, FragementProfile.x);
+            LatLong arrever = new LatLong(36.24477, 6.57030);
+            drawMarker(R.drawable.ic_place_black_24dp, latLong);
+            mapView.setCenter(latLong
+            );
+            mapView.setZoomLevel((byte) 19);
+        }
         Button button=(Button) view.findViewById(R.id.btMaposision);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                LatLong latLong=new LatLong(FragementProfile.y,FragementProfile.x);
-                LatLong arrever=new LatLong(36.24477,6.57030);
-                desingerChemin(latLong,arrever);
-                drawMarker(R.drawable.ic_place_black_24dp,latLong);
-                mapView.setCenter(latLong
-                );
-                mapView.setZoomLevel((byte) 19);
+                if(FragementProfile.y!=0&&FragementProfile.x!=0) {
+                    LatLong latLong = new LatLong(FragementProfile.y, FragementProfile.x);
+                    LatLong arrever = new LatLong(36.24477, 6.57030);
+                    desingerChemin(latLong, arrever);
+                    drawMarker(R.drawable.ic_place_black_24dp, latLong);
+                    mapView.setCenter(latLong
+                    );
+                    mapView.setZoomLevel((byte) 15);
+                }
             }
         });
 
@@ -111,6 +124,9 @@ public class FragemntMapsChallenges extends Fragment {
  }
 
     public void drawMarker(int resourceId, LatLong geoPoint){
+        if(ancienMarker!=null) {
+            mapView.getLayerManager().getLayers().remove(ancienMarker);
+        }
         Drawable drawable = getResources().getDrawable(resourceId);
         Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
         bitmap.scaleTo(130,130);
@@ -120,7 +136,6 @@ public class FragemntMapsChallenges extends Fragment {
                 if (contains(viewPos, tapPoint)) {
                     LatLong dep=new LatLong(36.26888,6.70143);
                     LatLong arr=new LatLong(36.3598,6.6044);
-                    mapView.getLayerManager().getLayers().remove(polyline);
                     desingerChemin(dep,arr);
                     return true;
                 }
@@ -130,6 +145,7 @@ public class FragemntMapsChallenges extends Fragment {
         };
 
         mapView.getLayerManager().getLayers().add(marker);
+        ancienMarker=marker;
     }
 
     public  void desingerChemin(LatLong depart,LatLong arrever){
@@ -142,8 +158,11 @@ public class FragemntMapsChallenges extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        double d=getDestenceFromJson(response);
                         latLongs=getPathFromJson(response);
                         drawPath(latLongs);
+                        textViewDistance.setText("distance "+d+" km");
+                        textViewDistance.setVisibility(View.VISIBLE);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -173,7 +192,26 @@ public class FragemntMapsChallenges extends Fragment {
             return path;
         } catch (JSONException e) {e.printStackTrace(); return null;}
     }
+
+    public double getDestenceFromJson(String json){
+        try{
+            List<LatLong> path = new ArrayList<>();
+            JSONObject jsonObj = new JSONObject(json);
+            double maneuversObj = jsonObj.getJSONObject("route")
+                    .getDouble("distance");
+
+            return maneuversObj;
+        }
+        catch (JSONException e) {e.printStackTrace();
+        return -1;}
+    }
+
+
+
     public void drawPath(List<LatLong> path){
+        if(polyline!=null){
+            mapView.getLayerManager().getLayers().remove(polyline);
+        }
         org.mapsforge.core.graphics.Paint paint
                 =  AndroidGraphicFactory.INSTANCE.createPaint();
         paint.setColor(Color.RED);
@@ -184,8 +222,7 @@ public class FragemntMapsChallenges extends Fragment {
         for(LatLong geoPoint : path)
             coordinateList.add(geoPoint);
         mapView.getLayerManager().getLayers().add(polyline);
-
-
     }
+
 
 }

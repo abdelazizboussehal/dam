@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
     <Button
         android:id="@+id/btRecupererPosition"
         android:layout_width="wrap_content"
@@ -15,6 +19,149 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
         android:text="position gps"
         />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginLeft="3dp"
+    android:background="@color/blue_normal">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:src="@drawable/c"
+        />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="144dp"
+        android:src="@drawable/grisman"
+        app:civ_border_color="#FF000000"
+        android:layout_marginTop="80dp"
+        app:civ_border_width="2dp" />
+    <TextView
+        android:id="@+id/tvnom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:text="Antoine"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@id/tvprenom"/>
+    <TextView
+        android:id="@+id/tvprenom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/tvprenom"
+        android:text=" Grizman"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvprenom"
+        android:text="Numéro de Telephone : "
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/tvphone"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/tvnum"
+        android:layout_toRightOf="@id/tvphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvprenom"
+        android:text="0792******"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tveml"
+        android:text="Email : "
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_below="@id/tvphone"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvémail"
+        android:text="Grizman@gmail.com"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_below="@id/tvphone"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/tveml"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btncréeChlng"
+        android:text=" Créer Challenge "
+        android:background="@color/holo_orange_light"
+        android:layout_below="@id/tvémail"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnmesChalng"
+        android:text=" Mes Challenge "
+        android:background="@color/holo_orange_light"
+        android:layout_below="@id/tvémail"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/btncréeChlng"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnaccueil"
+        android:text=" Accueil "
+        android:background="@color/holo_orange_light"
+        android:layout_below="@id/tvémail"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/btnmesChalng"
+        />
+</RelativeLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btncontact"
+        android:layout_toRightOf="@id/btRecupererPosition"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/ic_phone_black_24dp"
+        android:background="@color/blue_pressed"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        />
+
 </RelativeLayout>

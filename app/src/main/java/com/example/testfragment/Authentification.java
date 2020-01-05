@@ -47,7 +47,7 @@ public class Authentification extends AppCompatActivity {
                         password.setError("le champ est vide");
                     return;
                 }
-                if(stringpassword.equals("aziz") && stringuUername.equals("aziz")){
+                if(stringpassword.equals("a") && stringuUername.equals("a")){
 
                     Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
                     startActivity(intent);

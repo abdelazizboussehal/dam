@@ -2,6 +2,7 @@ package com.example.testfragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -71,7 +72,7 @@ public class FragementProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_drawer_first, container, false);
+        View view=inflater.inflate(R.layout.fragment_drawer_profile, container, false);
         Button button=(Button)view.findViewById(R.id.btRecupererPosition);
         final TextView textView =(TextView) view.findViewById(R.id.tvPosition);
         button.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +82,14 @@ public class FragementProfile extends Fragment {
                 recupererPosition();
                 textView.setText("long : "+x+" lat :"+y);
 
+            }
+        });
+        Button buttoncree=(Button) view.findViewById(R.id.btncréeChlng);
+        buttoncree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),CreeChallenges.class);
+                startActivity(intent);
             }
         });
         getActivity().setTitle("First title");

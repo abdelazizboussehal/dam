@@ -8,6 +8,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,29 +26,16 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
-        new Handler().postDelayed(new Runnable(){
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void run() {
+        if(checkConnection(this)){
+            spalsh();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-                        && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{
-                            Manifest.permission.ACCESS_FINE_LOCATION}, 99);
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"deja autorise",Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(SplashActivity.this, Authentification.class);
-                    recupererPosition();
-                    SplashActivity.this.startActivity(mainIntent);
-                    SplashActivity.this.finish();
-                }
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"pas accée a l'internate",Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
-            }
-        }, SPLASH_DISPLAY_LENGTH);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -109,5 +98,43 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
         lm.requestLocationUpdates(provider, minTime, minDistance, locListener);
+    }
+    public void spalsh(){
+        getSupportActionBar().hide();
+        new Handler().postDelayed(new Runnable(){
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void run() {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                        && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION}, 99);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"deja autorise",Toast.LENGTH_SHORT).show();
+                    Intent mainIntent = new Intent(SplashActivity.this, Authentification.class);
+                    recupererPosition();
+                    SplashActivity.this.startActivity(mainIntent);
+                    SplashActivity.this.finish();
+                }
+
+            }
+        }, SPLASH_DISPLAY_LENGTH);
+    }
+
+    public static boolean checkConnection(Context ctx) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isConnected() ||
+                (networkInfo.getType() != ConnectivityManager.TYPE_WIFI &&
+                        networkInfo.getType() != ConnectivityManager.TYPE_MOBILE)) {
+// No internet connection
+            return false;
+        } else
+            return true;
     }
 }

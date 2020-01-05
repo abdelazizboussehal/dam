@@ -46,18 +46,7 @@
         app:civ_border_color="#FF000000"
         android:layout_marginTop="80dp"
         app:civ_border_width="2dp" />
-    <TextView
-        android:id="@+id/tvnom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profile_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="0dp"
-        android:text="Antoine"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_toLeftOf="@id/tvprenom"/>
+
     <TextView
         android:id="@+id/tvprenom"
         android:layout_width="wrap_content"
@@ -65,7 +54,7 @@
         android:layout_below="@id/profile_image"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@id/tvprenom"
-        android:text=" Grizman"
+        android:text="antoin Grizman"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp"
         android:textStyle="bold" />

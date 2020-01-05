@@ -7,6 +7,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -17,24 +18,20 @@
         android:roundIcon="@drawable/trashh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CreeChallenges"
+            android:hardwareAccelerated="false"
+            ></activity>
         <activity android:name=".RecupererPostion" />
-        <activity
-            android:name=".DrawerNavigationView">
-
-        </activity>
-        <activity
-            android:name=".CreeCompte" />
-        <activity
-            android:name=".SplashActivity"
-            >
+        <activity android:name=".DrawerNavigationView" />
+        <activity android:name=".CreeCompte" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Authentification"></activity>
+        <activity android:name=".Authentification" />
     </application>
 
 </manifest>

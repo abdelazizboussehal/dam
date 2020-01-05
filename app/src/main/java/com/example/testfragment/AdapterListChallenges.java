@@ -9,16 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.testfragment.model.Challengeee;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterListChallenges extends ArrayAdapter<Challenge> {
+public class AdapterListChallenges extends ArrayAdapter<Challengeee> {
         Activity activity;
         int itemResourceId;
-        List<Challenge> items;
+        List<Challengeee> items;
 
-    public AdapterListChallenges(Activity activity, int itemResourceId, List<Challenge> items) {
+    public AdapterListChallenges(Activity activity, int itemResourceId, List<Challengeee> items) {
         super(activity, itemResourceId, items);
         this.activity = activity;
         this.itemResourceId = itemResourceId;
@@ -27,7 +29,7 @@ public class AdapterListChallenges extends ArrayAdapter<Challenge> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Challenge item = items.get(position);
+        Challengeee item = items.get(position);
         // Check if an existing view is being reused, otherwise inflate the view
         View layout=convertView;
         if(convertView==null){

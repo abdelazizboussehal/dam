@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.testfragment.model.Challenge;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +43,7 @@ import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class FragemntMapsChallenges extends Fragment {
     static Marker ancienMarker=null;
@@ -49,6 +51,8 @@ public class FragemntMapsChallenges extends Fragment {
     MapView mapView; TileCache tileCache;
     static Polyline polyline;
     TextView textViewDistance;
+    TileRendererLayer tileRendererLayer;
+    LatLong myPosition;
     public FragemntMapsChallenges(){
         super();
     }
@@ -88,9 +92,8 @@ public class FragemntMapsChallenges extends Fragment {
             public void onClick(View view) {
                 if(FragementProfile.y!=0&&FragementProfile.x!=0) {
                     LatLong latLong = new LatLong(FragementProfile.y, FragementProfile.x);
-                    LatLong arrever = new LatLong(36.24477, 6.57030);
-                    desingerChemin(latLong, arrever);
-                    drawMarker(R.drawable.ic_place_black_24dp, latLong);
+                    myPosition=latLong;
+                    drawMarker(R.drawable.my_position_24dp, latLong);
                     mapView.setCenter(latLong
                     );
                     mapView.setZoomLevel((byte) 15);
@@ -98,10 +101,12 @@ public class FragemntMapsChallenges extends Fragment {
             }
         });
 
+
+        recupererAllChallenge();
         return view;
     }
 
-    TileRendererLayer tileRendererLayer;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -109,7 +114,17 @@ public class FragemntMapsChallenges extends Fragment {
        MapDataStore mapDataStore = new MapFile(file);
         tileRendererLayer = new TileRendererLayer(tileCache, mapDataStore,
                 mapView.getModel().mapViewPosition,
-                AndroidGraphicFactory.INSTANCE);
+                AndroidGraphicFactory.INSTANCE){
+            @Override
+            public boolean onLongPress(LatLong tapLatLong,
+                                       Point layerXY,
+                                       Point tapXY){
+                myPosition=tapLatLong;
+                drawMarker(R.drawable.my_position_24dp, tapLatLong);
+                return true;
+            }
+
+        };
         tileRendererLayer.setXmlRenderTheme(InternalRenderTheme.OSMARENDER);
         mapView.getLayerManager().getLayers().add(tileRendererLayer);
         mapView.setCenter(new LatLong(36.245138, 6.570929));
@@ -134,9 +149,7 @@ public class FragemntMapsChallenges extends Fragment {
             @Override
             public boolean onTap(LatLong geoPoint, Point viewPos, Point tapPoint){
                 if (contains(viewPos, tapPoint)) {
-                    LatLong dep=new LatLong(36.26888,6.70143);
-                    LatLong arr=new LatLong(36.3598,6.6044);
-                    desingerChemin(dep,arr);
+
                     return true;
                 }
                 return false;
@@ -149,7 +162,7 @@ public class FragemntMapsChallenges extends Fragment {
     }
 
     public  void desingerChemin(LatLong depart,LatLong arrever){
-        String url = "https://www.mapquestapi.com/directions/v2/route?key=deamSBfbxULjOkFvP9dW1QiAKewVYxVg&json={locations:[{latLng:{lat:"+depart.latitude+",lng:"+depart.longitude+"}},{latLng:{lat:"+arrever.latitude+",lng:"+arrever.longitude+"}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
+        String url = "https://www.mapquestapi.com/directions/v2/route?key=R4vnaPhLfcyKuGeJbcdUeUSOY3e0GCzk&json={locations:[{latLng:{lat:"+depart.latitude+",lng:"+depart.longitude+"}},{latLng:{lat:"+arrever.latitude+",lng:"+arrever.longitude+"}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -174,6 +187,8 @@ public class FragemntMapsChallenges extends Fragment {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+
+
 
     public List<LatLong> getPathFromJson(String json){
         try{
@@ -224,5 +239,84 @@ public class FragemntMapsChallenges extends Fragment {
         mapView.getLayerManager().getLayers().add(polyline);
     }
 
+
+    public Set<Challenge> recupererAllChallenge(){
+        String url = "http://192.168.137.1:3000/challenge/";
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        List<LatLong> path = new ArrayList<>();
+                        JSONObject jsonObj = null;
+                        List<Challenge> challengeSet=new ArrayList<>();
+
+                            /*
+                            try {
+                            JSONArray maneuversObj = new JSONArray(response);
+                            for(int i=0;i<maneuversObj.length();i++){
+                                double lat=maneuversObj.getJSONObject(i).getJSONObject("address")
+                                        .getDouble("latitude");
+                                double lon=maneuversObj.getJSONObject(i).getJSONObject("address")
+                                        .getDouble("longitude");
+                                int id=maneuversObj.getJSONObject(i).getInt("id");
+                                challengeSet.add(new Challenge(id,lat,lon));
+                                } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                                */
+                            challengeSet= Challenge.getChallengesFromJson(response);
+                            drawAllchallehnge(challengeSet);
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        return  null;
+    }
+
+    public void drawMarkersanssupprimer(int resourceId, LatLong geoPoint){
+
+        Drawable drawable = getResources().getDrawable(resourceId);
+        Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
+        bitmap.scaleTo(130,130);
+        Marker marker = new Marker(geoPoint, bitmap, 0, -bitmap.getHeight() / 2){
+            @Override
+            public boolean onTap(LatLong geoPoint, Point viewPos, Point tapPoint){
+                if (contains(viewPos, tapPoint)) {
+
+                    desingerChemin(myPosition,geoPoint);
+                    return true;
+                }
+                return false;
+            }
+
+        };
+
+        mapView.getLayerManager().getLayers().add(marker);
+    }
+
+
+    public void drawAllchallehnge(List<Challenge> challenges){
+        if(!challenges.isEmpty()) {
+            for (int i = 0; i < challenges.size(); i++) {
+                LatLong latLong = new LatLong(challenges.get(i).getAddress().getLatitude(),challenges.get(i).getAddress().getLongitude());
+
+                drawMarkersanssupprimer(R.drawable.ic_place_black_24dp,latLong);
+            }
+        }
+
+    }
 
 }

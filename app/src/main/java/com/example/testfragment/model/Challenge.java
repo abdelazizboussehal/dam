@@ -23,7 +23,7 @@ public class Challenge {
     private Client rClient;
     private Set<Client> rrClient=new HashSet<>();
     private int id,state;
-    private Date createdDate,startingDate,endingDate;
+    private String createdDate,startingDate,endingDate;
     private Set<Photo> rPhoto=new HashSet<>();
     private Address address;
     private Set<Note> rNote=new HashSet<>();
@@ -33,7 +33,7 @@ public class Challenge {
         return rrClient;
     }
 
-    public Challenge(int state, Date createdDate, Date startingDate, Date endingDate, Address address) {
+    public Challenge(int state, String createdDate, String startingDate, String endingDate, Address address) {
 
         this.state = state;
         this.createdDate = createdDate;
@@ -71,27 +71,27 @@ public class Challenge {
         this.state = state;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
-    public Date getStartingDate() {
+    public String getStartingDate() {
         return startingDate;
     }
 
-    public void setStartingDate(Date startingDate) {
+    public void setStartingDate(String startingDate) {
         this.startingDate = startingDate;
     }
 
-    public Date getEndingDate() {
+    public String getEndingDate() {
         return endingDate;
     }
 
-    public void setEndingDate(Date endingDate) {
+    public void setEndingDate(String endingDate) {
         this.endingDate = endingDate;
     }
 
@@ -217,11 +217,6 @@ public class Challenge {
         this.rNote = rNote;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "aziz";
-    }
     public static Challenge getChallengeFromJson(String jsonText){
         Gson gson = new Gson();
         Challenge challenge = gson.fromJson(jsonText, Challenge.class);
@@ -232,5 +227,9 @@ public class Challenge {
         Type type = new TypeToken<List<Challenge>>(){}.getType();
         List<Challenge> challenges = gson.fromJson(jsonText, type);
         return challenges;
+    }
+    public String tojson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

@@ -6,19 +6,29 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.testfragment.model.Address;
+import com.example.testfragment.model.Challenge;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.Point;
@@ -33,8 +43,14 @@ import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class CreeChallenges extends AppCompatActivity {
 
@@ -77,7 +93,9 @@ public class CreeChallenges extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                creeChallenge(lat,lon);
+                creeChallengePost(lat,lon);
+                LatLong latLong=new LatLong(lat,lon);
+                getAdressFromMapquest(latLong,latLong);
                 finish();
 
             }
@@ -162,6 +180,103 @@ public class CreeChallenges extends AppCompatActivity {
         AndroidGraphicFactory.clearResourceMemoryCache();
         super.onDestroy();
     }
+    public  void creeChallengePost(double lat,double lon){
+        String url = "http://192.168.137.1:3000/challenge/";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        DateFormat df = new SimpleDateFormat("dd/MM/yy");
+        Calendar calobj = Calendar.getInstance();
+        System.out.println(df.format(calobj.getTime()));
 
+        Challenge challenge =new Challenge(123,df.format(calobj.getTime()),null,null
+                ,new Address(1,lon,lat,"cnep","el khroub ","212121","algieria"));
+        JSONParser parser = new JSONParser();
+        JSONObject jsonBody=null;
+        String a=challenge.tojson();
+        a=challenge.tojson();
+        try {
+            jsonBody = new JSONObject(a);
 
+        }  catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final String mRequestBody = jsonBody.toString();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("LOG_RESPONSE", response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("LOG_RESPONSE", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException uee) {
+                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                    return null;
+                }
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String responseString = "";
+                if (response != null) {
+                    responseString = String.valueOf(response.statusCode);
+                }
+                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+            }
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    public  void getAdressFromMapquest(LatLong depart,LatLong arrever){
+        String url = "https://www.mapquestapi.com/directions/v2/route?key=R4vnaPhLfcyKuGeJbcdUeUSOY3e0GCzk&json={locations:[{latLng:{lat:"+depart.latitude+",lng:"+depart.longitude+"}},{latLng:{lat:"+arrever.latitude+",lng:"+arrever.longitude+"}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Bundle d=getAdressFromJson(response);
+                        Toast.makeText(getApplicationContext(),d.getString("ville"),Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    public Bundle getAdressFromJson(String json){
+        try{
+            Bundle bundle=new Bundle();
+            JSONObject jsonObj = new JSONObject(json);
+            JSONArray jsonArray = jsonObj.getJSONObject("route")
+                    .getJSONArray("locations");
+               bundle.putString("ville",jsonArray.getJSONObject(0).getString("adminArea3"));
+            bundle.putString("street",jsonArray.getJSONObject(0).getString("street"));
+            bundle.putString("city",jsonArray.getJSONObject(0).getString("adminArea5"));
+            bundle.putString("zipeCode",jsonArray.getJSONObject(0).getString("postalCode"));
+            return bundle;
+        }
+        catch (JSONException e) {e.printStackTrace();
+            return null;}
+    }
 }

@@ -15,6 +15,7 @@ public class Challengeee {
     private String adresse;
     private double lat ,lon;
 
+
     public Challengeee(int id, double lat, double lon) {
         this.id = id;
         this.lat = lat;

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.testfragment.FormulaireAdress">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="la rue"
+            android:id="@+id/edt_rue"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="text"
+            android:textStyle="bold"
+            />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ville"
+        android:id="@+id/edt_ville"
+        android:textSize="25dp"
+        android:layout_margin="15dp"
+        android:inputType="text"
+        android:textStyle="bold"
+        />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="code postale"
+            android:id="@+id/edt_postal"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="text"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="le paye"
+            android:id="@+id/edt_paye"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="text"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="date debut"
+            android:id="@+id/edt_dateStart"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="date"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="date fin"
+            android:id="@+id/edt_dateEnd"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="date"
+            android:textStyle="bold"
+            />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="annuler"
+                />
+            <Button
+                android:id="@+id/btPublier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="publier"
+                />
+
+        </TableRow>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -2,6 +2,8 @@ package com.example.testfragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
 import java.io.File;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,7 +56,7 @@ import java.util.List;
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class CreeChallenges extends AppCompatActivity {
-
+    static Activity activity;
     MapView mapView;
     TileCache tileCache;
     Marker ancienMarker=null;
@@ -63,6 +66,7 @@ public class CreeChallenges extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidGraphicFactory.createInstance(this.getApplication());
+        activity=this;
         setContentView(R.layout.activity_cree_challenges);
         lat=FragementProfile.y;
         lon=FragementProfile.x;
@@ -93,10 +97,9 @@ public class CreeChallenges extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                creeChallengePost(lat,lon);
+                //creeChallengePost(lat,lon);
                 LatLong latLong=new LatLong(lat,lon);
                 getAdressFromMapquest(latLong,latLong);
-                finish();
 
             }
         });
@@ -180,67 +183,8 @@ public class CreeChallenges extends AppCompatActivity {
         AndroidGraphicFactory.clearResourceMemoryCache();
         super.onDestroy();
     }
-    public  void creeChallengePost(double lat,double lon){
-        String url = "http://192.168.137.1:3000/challenge/";
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        DateFormat df = new SimpleDateFormat("dd/MM/yy");
-        Calendar calobj = Calendar.getInstance();
-        System.out.println(df.format(calobj.getTime()));
 
-        Challenge challenge =new Challenge(123,df.format(calobj.getTime()),null,null
-                ,new Address(1,lon,lat,"cnep","el khroub ","212121","algieria"));
-        JSONParser parser = new JSONParser();
-        JSONObject jsonBody=null;
-        String a=challenge.tojson();
-        a=challenge.tojson();
-        try {
-            jsonBody = new JSONObject(a);
-
-        }  catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final String mRequestBody = jsonBody.toString();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("LOG_RESPONSE", response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("LOG_RESPONSE", error.toString());
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
-
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                try {
-                    return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                } catch (UnsupportedEncodingException uee) {
-                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                    return null;
-                }
-            }
-
-            @Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                String responseString = "";
-                if (response != null) {
-                    responseString = String.valueOf(response.statusCode);
-                }
-                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-            }
-        };
-
-        requestQueue.add(stringRequest);
-    }
-
-    public  void getAdressFromMapquest(LatLong depart,LatLong arrever){
+    public  void getAdressFromMapquest(final LatLong depart, LatLong arrever){
         String url = "https://www.mapquestapi.com/directions/v2/route?key=R4vnaPhLfcyKuGeJbcdUeUSOY3e0GCzk&json={locations:[{latLng:{lat:"+depart.latitude+",lng:"+depart.longitude+"}},{latLng:{lat:"+arrever.latitude+",lng:"+arrever.longitude+"}}]}&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false";
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -251,11 +195,22 @@ public class CreeChallenges extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Bundle d=getAdressFromJson(response);
+                        d.putDouble("lat", depart.latitude);
+                        d.putDouble("lon", depart.longitude);
+                        Intent intent=new Intent(getApplicationContext(),FormulaireAdress.class);
+                        intent.putExtras(d);
+                        startActivity(intent);
                         Toast.makeText(getApplicationContext(),d.getString("ville"),Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Bundle d=new Bundle();
+                d.putDouble("lat", depart.latitude);
+                d.putDouble("lon", depart.longitude);
+                Intent intent=new Intent(getApplicationContext(),FormulaireAdress.class);
+                intent.putExtras(d);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
@@ -270,7 +225,7 @@ public class CreeChallenges extends AppCompatActivity {
             JSONObject jsonObj = new JSONObject(json);
             JSONArray jsonArray = jsonObj.getJSONObject("route")
                     .getJSONArray("locations");
-               bundle.putString("ville",jsonArray.getJSONObject(0).getString("adminArea3"));
+                   bundle.putString("ville",jsonArray.getJSONObject(0).getString("adminArea3"));
             bundle.putString("street",jsonArray.getJSONObject(0).getString("street"));
             bundle.putString("city",jsonArray.getJSONObject(0).getString("adminArea5"));
             bundle.putString("zipeCode",jsonArray.getJSONObject(0).getString("postalCode"));

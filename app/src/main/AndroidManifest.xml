@@ -18,9 +18,10 @@
         android:roundIcon="@drawable/trashh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreeChallenges"
-            android:hardwareAccelerated="false"
-            ></activity>
+        <activity android:name=".FormulaireAdress"></activity>
+        <activity
+            android:name=".CreeChallenges"
+            android:hardwareAccelerated="false" />
         <activity android:name=".RecupererPostion" />
         <activity android:name=".DrawerNavigationView" />
         <activity android:name=".CreeCompte" />

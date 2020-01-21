@@ -20,6 +20,7 @@ public class DrawerNavigationView extends AppCompatActivity implements Navigatio
     FragmentManager fm;
     DrawerLayout drawer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +50,15 @@ public class DrawerNavigationView extends AppCompatActivity implements Navigatio
         switch (item.getItemId()) {
             case R.id.item_first:
                 fm.beginTransaction().replace(R.id.frame_layout, new FragementProfile()).commit();
+                drawer.closeDrawers();
                 return true;
             case R.id.item_second:
                 fm.beginTransaction().replace(R.id.frame_layout, new FragementChallengesContiner()).commit();
+                drawer.closeDrawers();
                 return true;
             case R.id.item_mes_challenge:
                 fm.beginTransaction().replace(R.id.frame_layout, new FragementListMesChallenges()).commit();
+                drawer.closeDrawers();
                 return true;
 
         }

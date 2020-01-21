@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.testfragment.ChallengeDetailler">
+
+    <TextView
+        android:id="@+id/txtv_titre_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Titre challenge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="adresse: \n paye:algerie \n ville : constantine \nrue :cenp \ncode postale:212500"
+        android:id="@+id/txtv_address"
+        android:layout_below="@id/txtv_titre_challenge"
+        android:layout_margin="20dp"/>
+    <TableRow
+        android:layout_below="@id/txtv_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabrow_date">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textv_date_start"
+            android:text="statde date"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textv_date_end"
+            android:text="statde date"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+    </TableRow>
+    <RelativeLayout
+        android:layout_below="@id/tabrow_date"
+        android:id="@+id/relative_imag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/img_challenge_detaille"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/grisman"
+            >
+
+        </ImageView>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edt_commentaire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Commenter"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        />
+    <ListView
+        android:layout_margin="5dp"
+        android:layout_below="@id/relative_imag"
+        android:layout_above="@id/edt_commentaire"
+        android:id="@+id/ListvewText_commentaire"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        />
+
+</RelativeLayout>

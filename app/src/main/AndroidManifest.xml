@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.testfragment">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.camera" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -18,12 +20,15 @@
         android:roundIcon="@drawable/trashh"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FormulaireAdress"></activity>
+        <activity android:name=".ChallengeDetailler"></activity>
+        <activity android:name=".TestSavePhotoServeur"></activity>
         <activity
             android:name=".CreeChallenges"
             android:hardwareAccelerated="false" />
         <activity android:name=".RecupererPostion" />
-        <activity android:name=".DrawerNavigationView" />
+        <activity android:name=".DrawerNavigationView" >
+
+        </activity>
         <activity android:name=".CreeCompte" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -33,6 +38,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Authentification" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

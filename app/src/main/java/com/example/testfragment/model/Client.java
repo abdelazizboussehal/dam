@@ -1,7 +1,12 @@
 package com.example.testfragment.model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Client extends User {
@@ -56,5 +61,30 @@ public class Client extends User {
     public void setrChallenge(Set<Challenge> rChallenge) {
         this.rChallenge = rChallenge;
     }
-
+    public static Client getClientFromJson(String jsonText){
+        Gson gson = new Gson();
+        Client client = gson.fromJson(jsonText, Client.class);
+        return client;
+    }
+    public static List<Client> getClientsFromJson(String jsonText){
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Client>>(){}.getType();
+        List<Client> clients  = gson.fromJson(jsonText, type);
+        return clients;
+    }
+    public static Client getChallengeFromJson(String jsonText){
+        Gson gson = new Gson();
+        Client client = gson.fromJson(jsonText, Client.class);
+        return client;
+    }
+    public static List<Client> getChallengesFromJson(String jsonText){
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Client>>(){}.getType();
+        List<Client> clients = gson.fromJson(jsonText, type);
+        return clients;
+    }
+    public String tojson(){
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 }

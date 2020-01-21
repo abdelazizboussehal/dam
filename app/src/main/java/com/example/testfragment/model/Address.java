@@ -1,8 +1,10 @@
 package com.example.testfragment.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Address {
+public class Address implements Serializable
+{
     private int id;
     private double longitude, latitude;
     private String street ,city,zipCode,country;

@@ -1,8 +1,9 @@
 package com.example.testfragment.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Administrator extends User {
+public class Administrator extends User implements Serializable {
     private String Email;
 
     public Administrator() {

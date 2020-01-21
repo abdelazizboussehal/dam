@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textview_auth_lien">18dp</dimen>
+    <dimen name="textview_standar_size">18dp</dimen>
     <dimen name="textview_width">150dp</dimen>
     <dimen name="sizeEcon">20dp</dimen>
+    <dimen name="sizeEcon_crrier_compte">25dp</dimen>
     <dimen name="marginLeftCreeCompte">40dp</dimen>
 </resources>

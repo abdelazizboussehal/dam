@@ -1,8 +1,9 @@
 package com.example.testfragment.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Note {
+public class Note implements Serializable {
     private int id;
     private int noteValue;
     private Client rClient;

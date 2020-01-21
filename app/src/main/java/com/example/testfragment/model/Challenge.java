@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class Challenge {
+public class Challenge implements Serializable {
     public Challenge(int id) {
         this.id = id;
     }

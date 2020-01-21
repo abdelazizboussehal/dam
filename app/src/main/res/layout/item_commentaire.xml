@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_margin="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:id="@+id/rlimg"
+    android:layout_marginTop="20dp"
+    android:layout_margin="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_profile_commentaire"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/lion"
+        />
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtv_nom_client"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="boussehal abdelaziz le tricheure"
+        android:layout_toRightOf="@id/rlimg"/>
+
+    <TextView
+        android:layout_below="@id/txtv_nom_client"
+        android:background="@android:color/holo_red_dark"
+        android:layout_toRightOf="@id/rlimg"
+        android:id="@+id/contenue_commentaire"
+        android:text="challenge ghol sahbi aw\n natla9aw bnchalah boumhani"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/textv_date"
+        android:layout_margin="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20/05/2019"
+        android:layout_below="@id/contenue_commentaire"
+        />
+
+</RelativeLayout>

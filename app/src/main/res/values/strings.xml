@@ -5,4 +5,6 @@
     <string name="profile">profile</string>
     <string name="consulter_challenges">challenges</string>
     <string name="consulter_meschallenges">Mes challenges</string>
+    <string name="cree_compte"><u> Cree compte </u></string>
+    <string name="ou"><u>        </u>OU<u>        </u></string>
 </resources>

@@ -17,8 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.testfragment.model.Challenge;
 
@@ -177,14 +178,16 @@ public class FragemntMapsChallenges extends Fragment {
                         textViewDistance.setText("distance "+d+" km");
                         textViewDistance.setVisibility(View.VISIBLE);
                     }
-                }, new Response.ErrorListener() {
+                },  new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
 // Add the request to the RequestQueue.
+
         queue.add(stringRequest);
     }
 
@@ -252,7 +255,7 @@ public class FragemntMapsChallenges extends Fragment {
                     public void onResponse(String response) {
                         List<LatLong> path = new ArrayList<>();
                         JSONObject jsonObj = null;
-                        List<Challenge> challengeSet=new ArrayList<>();
+                        List<Challenge> challengeSet = new ArrayList<>();
 
                             /*
                             try {
@@ -268,16 +271,15 @@ public class FragemntMapsChallenges extends Fragment {
                             e.printStackTrace();
                         }
                                 */
-                            challengeSet= Challenge.getChallengesFromJson(response);
-                            drawAllchallehnge(challengeSet);
-
+                        challengeSet = Challenge.getChallengesFromJson(response);
+                        drawAllchallehnge(challengeSet);
 
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

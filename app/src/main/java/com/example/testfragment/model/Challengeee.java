@@ -5,10 +5,11 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class Challengeee {
+public class Challengeee implements Serializable {
    private int idImage,id,nombreParticipent;
     private  String date ;
     private double distance;

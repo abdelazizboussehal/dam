@@ -1,9 +1,10 @@
 package com.example.testfragment.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Comment {
+public class Comment implements Serializable {
 private int id;
 private String content;
 private Date creationDate ;

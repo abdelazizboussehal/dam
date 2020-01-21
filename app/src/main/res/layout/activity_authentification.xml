@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Authentification"
-    >
+    tools:context=".Authentification">
 
 
     <TextView
         android:id="@+id/etxt_identification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
-        android:text="identifier-vous!"
-        android:textSize="20dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="30dp"
+        android:text="Identifier-vous!"
+        android:textSize="45dp"
+        app:fontFamily="@font/bubblegum_sans"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,14 +40,17 @@
                 app:srcCompat="@drawable/ic_email_black_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
-            <EditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etxt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/img_email"
                 android:layout_marginLeft="50dp"
-                android:hint="Email"
-                android:inputType="text" />
+                android:hint="Entrer username"
+                android:inputType="text"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="User Name"
+                app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,14 +67,18 @@
                 app:srcCompat="@drawable/ic_lock_black_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
-            <EditText
+
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etxt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/img_password"
                 android:layout_marginLeft="50dp"
-                android:hint="Password"
-                android:inputType="textPassword" />
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Password"
+                app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -79,65 +89,80 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_margin="15dp"
-                android:text="Mot de passe oublier !"
+                android:layout_margin="10dp"
+                android:text="Mot de passe oublier ?"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/textview_auth_lien" />
+                android:textSize="15dp"
+                app:fontFamily="@font/bubblegum_sans" />
         </RelativeLayout>
 
-        <Button
+
+        <com.dd.processbutton.iml.ActionProcessButton
             android:id="@+id/bt_connectez_vous"
             android:layout_width="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@android:color/black"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="16dp"
             android:padding="15dp"
+
             android:text=" connectez-vous "
             android:textColor="@android:color/white"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:pb_colorPressed="@color/colorPrimary"
+
+            />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/txtv_nouveau_sur_truch"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="60dp"
-                android:text="Nouveau sur trach" />
+                android:layout_centerHorizontal="true">
 
-            <TextView
-                android:id="@+id/tvCreecompte"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/txtv_nouveau_sur_truch"
-                android:layout_marginLeft="120dp"
-                android:text="cree compte"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/textview_auth_lien"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtv_nouveau_sur_truch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:fontFamily="@font/bubblegum_sans"
+                    android:text="Nouveau sur trach ?  "
+                    android:textSize="@dimen/textview_auth_lien"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCreecompte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@id/txtv_nouveau_sur_truch"
+                    android:fontFamily="@font/bubblegum_sans"
+                    android:text="@string/cree_compte"
+                    android:textColor="@color/creecompte"
+                    android:textSize="@dimen/textview_auth_lien"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp">
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
-                android:text="ou"
+                android:fontFamily="@font/bubblegum_sans"
+                android:text="@string/ou"
                 android:textSize="25dp"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -148,10 +173,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-
-                android:text="continuer as facebook"
-                android:textColor="@color/colorAccent"
-                android:textSize="25dp" />
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/bubblegum_sans"
+                android:gravity="center"
+                android:text="S'inscrire avec facebook"
+                android:textStyle="bold"
+                android:textColor="@color/creecompte"
+                android:textSize="20dp" />
         </RelativeLayout>
 
     </LinearLayout>

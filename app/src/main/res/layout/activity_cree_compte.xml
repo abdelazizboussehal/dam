@@ -10,148 +10,212 @@
         android:id="@+id/etxt_créer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:text="Créer un nouveau compte "
-        android:layout_margin="20dp"
-        android:textSize="20dp"
-        />
+        android:textSize="35dp"
+        app:fontFamily="@font/bubblegum_sans" />
+
     <LinearLayout
-        android:layout_below="@id/etxt_créer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/etxt_créer"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="12dp"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_margin="10dp" 
+
+        <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/img_prénom"
-                android:layout_width="@dimen/sizeEcon"
-                android:layout_height="@dimen/sizeEcon"
-                app:srcCompat="@drawable/ic_account_circle_black_24dp"
-                tools:ignore="VectorDrawableCompat" />
-
-            <EditText
-                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
-                android:layout_alignLeft="@id/img_prénom"
-                android:id="@+id/etxt_prénom"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Prénom"
-                android:inputType="text"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/img_nom"
-                android:layout_centerVertical="true"
-                android:layout_width="@dimen/sizeEcon"
-                android:layout_height="@dimen/sizeEcon"
-                tools:ignore="VectorDrawableCompat"
-                app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <EditText
-                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
-                android:layout_alignLeft="@id/img_nom"
-                android:id="@+id/etxt_nom"
+                <ImageView
+                    android:id="@+id/img_prénom"
+                    android:layout_width="@dimen/sizeEcon_crrier_compte"
+                    android:layout_height="@dimen/sizeEcon_crrier_compte"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_account_circle_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etxt_prénom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/img_prénom"
+                    android:layout_marginLeft="@dimen/marginLeftCreeCompte"
+                    android:hint="Prénom"
+                    android:inputType="text"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="Prénom"
+                    app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="nom"/>
-        </RelativeLayout>
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_nom"
+                    android:layout_width="@dimen/sizeEcon_crrier_compte"
+                    android:layout_height="@dimen/sizeEcon_crrier_compte"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_account_circle_black_24dp"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etxt_nom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/img_nom"
+                    android:layout_marginLeft="@dimen/marginLeftCreeCompte"
+                    android:hint="Nom"
+                    android:inputType="text"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelText="Nom"
+                    app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
+            </RelativeLayout>
+        </TableRow>
+
         <RelativeLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/img_email"
-                android:layout_width="@dimen/sizeEcon"
-                android:layout_height="@dimen/sizeEcon"
+                android:layout_width="@dimen/sizeEcon_crrier_compte"
+                android:layout_height="@dimen/sizeEcon_crrier_compte"
                 app:srcCompat="@drawable/ic_email_black_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
-            <EditText
-                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
-                android:layout_alignLeft="@id/img_email"
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etxt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/img_email"
+                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
                 android:hint="Email"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Email"
+                app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/img_password"
-                android:layout_width="@dimen/sizeEcon"
-                android:layout_height="@dimen/sizeEcon"
+                android:layout_width="@dimen/sizeEcon_crrier_compte"
+                android:layout_height="@dimen/sizeEcon_crrier_compte"
                 app:srcCompat="@drawable/ic_lock_black_24dp"
                 tools:ignore="VectorDrawableCompat" />
 
-            <EditText
-                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
-                android:layout_alignLeft="@id/img_password"
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/etxt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/img_password"
+                android:layout_marginLeft="@dimen/marginLeftCreeCompte"
                 android:hint="Password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="Mot de passe"
+                app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_centerVertical="true"
                 android:id="@+id/img_num"
-                tools:ignore="VectorDrawableCompat"
+                android:layout_width="@dimen/sizeEcon_crrier_compte"
+                android:layout_height="@dimen/sizeEcon_crrier_compte"
+                android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_phone_black_24dp"
-                android:layout_width="@dimen/sizeEcon"
-                android:layout_height="@dimen/sizeEcon" />
+                tools:ignore="VectorDrawableCompat" />
+
             <Spinner
+                android:id="@+id/spinnerNumNatonal"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:id="@+id/spinnerNumNatonal"
-                android:layout_marginLeft="30dp"
                 android:layout_alignLeft="@id/img_num"
-                android:autofillHints="+213"
-                >
-            </Spinner>
+                android:layout_marginLeft="30dp"
+                android:autofillHints="+213"></Spinner>
+
             <EditText
-                android:layout_marginLeft="150dp"
-                android:layout_marginRight="50dp"
                 android:id="@+id/etxt_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginRight="50dp"
                 android:hint="Mobile"
-                android:inputType="phone"/>
+                android:inputType="phone" />
 
         </RelativeLayout>
-        <Button
-            android:layout_marginTop="30dp"
-            android:id="@+id/btCreeCompte"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" Créer Compte "
-            android:background="@android:color/black"
-            android:padding="15dp"
-            android:textColor="@android:color/white"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            />
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_date"
+                android:layout_width="@dimen/sizeEcon_crrier_compte"
+                android:layout_height="@dimen/sizeEcon_crrier_compte"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_phone_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+
+                android:id="@+id/etxt_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:hint="date de naissance"
+                android:inputType="text"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelText="date de naissance"
+                app:met_floatingLabelTextSize="@dimen/textview_standar_size" />
+
+        </RelativeLayout>
+
     </LinearLayout>
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/btCreeCompte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="16dp"
+        android:padding="15dp"
+        android:text="Inscrivez-vous"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:pb_colorPressed="@color/colorPrimary" />
 </RelativeLayout>

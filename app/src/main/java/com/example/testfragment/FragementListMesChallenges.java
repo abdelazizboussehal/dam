@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.testfragment.model.Address;
+import com.example.testfragment.model.Challenge;
 import com.example.testfragment.model.Challengeee;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import java.util.List;
 
 public class FragementListMesChallenges extends Fragment {
     ListView listView;
-    List<Challengeee> noms;
+    List<Challenge> noms;
     int position=-1;
     AdapterListChallenges myada;
     public FragementListMesChallenges(){
@@ -31,18 +33,12 @@ public class FragementListMesChallenges extends Fragment {
         getActivity().setTitle("Mes challenegs");
         View view= inflater.inflate(R.layout.fragement_list_challenges, container, false);
         noms=new ArrayList<>();
-        noms.add(new Challengeee(R.drawable.lieu1,1,50,"12/05/2020",15,"challenge nouvelle ville uv 3"));
-        noms.add(new Challengeee(R.drawable.lieu2,1,50,"15/02/2020",15,"challenge nouvelle ville uv 17"));
-        noms.add(new Challengeee(R.drawable.lieu3,1,50,"",15,"challenge elkhroub 1013"));
-        noms.add(new Challengeee(R.drawable.lieu1,1,50,"12/05/2020",15,"challenge nouvelle ville uv 3"));
-        noms.add(new Challengeee(R.drawable.lieu2,1,50,"15/02/2020",15,"challenge nouvelle ville uv 17"));
-        noms.add(new Challengeee(R.drawable.lieu3,1,50,"",15,"challenge elkhroub 1013"));
-        noms.add(new Challengeee(R.drawable.lieu1,1,50,"12/05/2020",15,"challenge nouvelle ville uv 3"));
-        noms.add(new Challengeee(R.drawable.lieu2,1,50,"15/02/2020",15,"challenge nouvelle ville uv 17"));
-        noms.add(new Challengeee(R.drawable.lieu3,1,50,"",15,"challenge elkhroub 1013"));
-        noms.add(new Challengeee(R.drawable.lieu1,1,50,"12/05/2020",15,"challenge nouvelle ville uv 3"));
-        noms.add(new Challengeee(R.drawable.lieu2,1,50,"15/02/2020",15,"challenge nouvelle ville uv 17"));
-        noms.add(new Challengeee(R.drawable.lieu3,1,50,"",15,"challenge elkhroub 1013"));
+        noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
+                ,"constantine","21210","algeria")));
+        noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
+                ,"constantine","21210","algeria")));
+        noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
+                ,"constantine","21210","algeria")));
         listView=(ListView)view.findViewById(R.id.ListvewText);
         myada=new AdapterListChallenges(getActivity(),R.layout.item_challenge,noms);
         listView.setAdapter(myada);

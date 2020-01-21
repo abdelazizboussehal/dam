@@ -3,6 +3,7 @@ package com.example.testfragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -17,24 +18,34 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class SplashActivity extends AppCompatActivity {
 
     private static final long SPLASH_DISPLAY_LENGTH = 1000;
+    int PERMISSION_ALL = 1;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.CAMERA,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
 
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        if(checkConnection(this)){
+
+
+
+        if (!hasPermissions(this, PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+        else
+        {
             spalsh();
-
         }
-        else {
-            Toast.makeText(getApplicationContext(),"pas accée a l'internate",Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
 
     }
 
@@ -43,12 +54,17 @@ public class SplashActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String[]
             permissions, int[] grantResults) {
         recupererPosition();
-        if(requestCode==99 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(getApplicationContext(),"permission autorise",Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),"deja autorise",Toast.LENGTH_SHORT).show();
+        if (requestCode == 99 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "permission autorise", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "deja autorise", Toast.LENGTH_SHORT).show();
             Intent mainIntent = new Intent(SplashActivity.this, Authentification.class);
             SplashActivity.this.startActivity(mainIntent);
             SplashActivity.this.finish();
+        }
+        if(requestCode == 1 ){
+            if (hasPermissions(this, PERMISSIONS)) {
+                spalsh();
+            }
         }
     }
 
@@ -77,8 +93,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
 
-            // quand le status d’une source change.
-// Il existe 3 statuts : OUT_OF_SERVICE, TEMPORARILY_UNAVAILABLE, AVAILABLE
+
             public void onProviderEnabled(String provider) {
             }
 
@@ -99,9 +114,10 @@ public class SplashActivity extends AppCompatActivity {
         }
         lm.requestLocationUpdates(provider, minTime, minDistance, locListener);
     }
-    public void spalsh(){
+
+    public void spalsh() {
         getSupportActionBar().hide();
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void run() {
@@ -111,14 +127,22 @@ public class SplashActivity extends AppCompatActivity {
                         != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{
                             Manifest.permission.ACCESS_FINE_LOCATION}, 99);
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"deja autorise",Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(SplashActivity.this, Authentification.class);
+                } else {
                     recupererPosition();
-                    SplashActivity.this.startActivity(mainIntent);
-                    SplashActivity.this.finish();
+                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    int id = sharedPref.getInt("id", -1);
+                    if (id < 0) {
+                        Toast.makeText(getApplicationContext(), "deja autorise", Toast.LENGTH_SHORT).show();
+                        Intent mainIntent = new Intent(SplashActivity.this, Authentification.class);
+                        SplashActivity.this.startActivity(mainIntent);
+                        SplashActivity.this.finish();
+
+                    } else {
+                        Intent mainIntent = new Intent(SplashActivity.this, DrawerNavigationView.class);
+                        SplashActivity.this.startActivity(mainIntent);
+                        SplashActivity.this.finish();
+
+                    }
                 }
 
             }
@@ -136,5 +160,15 @@ public class SplashActivity extends AppCompatActivity {
             return false;
         } else
             return true;
+    }
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

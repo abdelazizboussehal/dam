@@ -2,37 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+
     >
 
-    <Button
-        android:id="@+id/btRecupererPosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="recuperer position"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        />
-    <TextView
-        android:id="@+id/tvPosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:text="position gps"
-        />
 
 <RelativeLayout
+    android:id="@+id/rl1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    android:layout_marginLeft="3dp"
-    android:background="@color/blue_normal">
+    android:layout_marginLeft="3dp">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="240dp"
         android:src="@drawable/c"
         />
     <de.hdodenhof.circleimageview.CircleImageView
@@ -57,100 +39,64 @@
         android:text="antoin Grizman"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp"
-        android:textStyle="bold" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvprenom"
-        android:text="Numéro de Telephone : "
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:id="@+id/tvphone"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        />
-    <TextView
-        android:id="@+id/tvnum"
-        android:layout_toRightOf="@id/tvphone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvprenom"
-        android:text="0792******"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginTop="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tveml"
-        android:text="Email : "
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_below="@id/tvphone"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        app:fontFamily="@font/bubblegum_sans"/>
 
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvémail"
-        android:text="Grizman@gmail.com"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_below="@id/tvphone"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/tveml"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btncréeChlng"
-        android:text=" Créer Challenge "
-        android:background="@color/holo_orange_light"
-        android:layout_below="@id/tvémail"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnmesChalng"
-        android:text=" Mes Challenge "
-        android:background="@color/holo_orange_light"
-        android:layout_below="@id/tvémail"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/btncréeChlng"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnaccueil"
-        android:text=" Accueil "
-        android:background="@color/holo_orange_light"
-        android:layout_below="@id/tvémail"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/btnmesChalng"
-        />
 </RelativeLayout>
+    <TableRow
+        android:id="@+id/tabrow"
+        android:layout_below="@id/rl1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:textSize="12dp"
+            app:fontFamily="@font/bubblegum_sans"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btncréeChlng"
+            android:text="publier"
+            android:background="@color/holo_orange_light"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            />
+        <Button
+            android:textSize="12dp"
+            app:fontFamily="@font/bubblegum_sans"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnmesChalng"
+            android:text="modifier compte"
+            android:background="@color/holo_orange_light"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/btncréeChlng"
+            />
+        <Button
+            android:textSize="12dp"
+            app:fontFamily="@font/bubblegum_sans"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnaccueil"
+            android:text=" Accueil "
+            android:background="@color/holo_orange_light"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/btnmesChalng"
+            />
+    </TableRow>
 
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/btncontact"
-        android:layout_toRightOf="@id/btRecupererPosition"
-        android:layout_marginBottom="40dp"
-        android:src="@drawable/ic_phone_black_24dp"
-        android:background="@color/blue_pressed"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        />
+    <ListView
+        android:layout_below="@id/tabrow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listviewmychallenge"
+        ></ListView>
 
 </RelativeLayout>

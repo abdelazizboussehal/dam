@@ -86,5 +86,14 @@ public class Address implements Serializable
         return id == address.id;
     }
 
+    @Override
+    public String toString() {
+        return
 
+                "\n la rue ='" + street + '\'' +
+                "\n ville='" + city + '\'' +
+                "\n code postal='" + zipCode + '\'' +
+                "\n paye='" + country + '\''
+                ;
+    }
 }

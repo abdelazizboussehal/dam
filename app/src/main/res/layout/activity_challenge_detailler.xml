@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.testfragment.ChallengeDetailler">
 
     <TextView
@@ -12,6 +13,8 @@
         android:text="Titre challenge"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        app:fontFamily="@font/bubblegum_sans"
+        android:textSize="30dp"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -19,33 +22,54 @@
         android:text="adresse: \n paye:algerie \n ville : constantine \nrue :cenp \ncode postale:212500"
         android:id="@+id/txtv_address"
         android:layout_below="@id/txtv_titre_challenge"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:textSize="20dp"
+    />
     <TableRow
+        android:background="@color/solid_black"
         android:layout_below="@id/txtv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tabrow_date">
+        android:id="@+id/tabrow_date"
+        >
         <TextView
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textv_date_start"
-            android:text="statde date"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textv_date_end"
-            android:text="statde date"
-            android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:background="@android:color/holo_red_dark"
-            android:textColor="@android:color/white"
+            android:text="13/12/2011"
+            android:layout_toRightOf="@id/img_chlng"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignBottom="@id/img_chlng"
             android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            app:fontFamily="@font/bubblegum_sans"
             />
+        <com.github.florent37.shapeofview.shapes.ArcView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            app:shape_arc_cropDirection="outside"
+            app:shape_arc_height="7dp"
+            app:shape_arc_position="left"
+            >
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/textv_date_end"
+                android:text="12/1é/20120"
+                android:layout_toRightOf="@id/img_chlng"
+                android:layout_alignBottom="@id/img_chlng"
+                android:background="@color/red_error"
+                android:gravity="center"
+                app:fontFamily="@font/bubblegum_sans"
+                />
+        </com.github.florent37.shapeofview.shapes.ArcView>
     </TableRow>
     <RelativeLayout
         android:layout_below="@id/tabrow_date"
@@ -63,7 +87,8 @@
         </ImageView>
 
     </RelativeLayout>
-    <Button
+    <ImageView
+        android:background="@drawable/comment_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="comments"
@@ -88,7 +113,6 @@
         android:id="@+id/ListvewText_commentaire"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
         />
 
 </RelativeLayout>

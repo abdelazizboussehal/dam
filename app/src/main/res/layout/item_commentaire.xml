@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_margin="5dp"
+<RelativeLayout android:layout_margin="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:shape_roundRect_bottomLeftRadius="10dp"
+        app:shape_roundRect_bottomRightRadius="10dp"
+        app:shape_roundRect_topLeftRadius="10dp"
+        app:shape_roundRect_topRightRadius="10dp"
+
+        app:shape_roundRect_borderColor="@android:color/black"
+        app:shape_roundRect_borderWidth="2dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 <RelativeLayout
     android:id="@+id/rlimg"
     android:layout_marginTop="20dp"
@@ -25,17 +42,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="boussehal abdelaziz le tricheure"
-        android:layout_toRightOf="@id/rlimg"/>
+        android:layout_toRightOf="@id/rlimg"
+        app:fontFamily="@font/bubblegum_sans"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:layout_below="@id/txtv_nom_client"
-        android:background="@android:color/holo_red_dark"
         android:layout_toRightOf="@id/rlimg"
         android:id="@+id/contenue_commentaire"
         android:text="challenge ghol sahbi aw\n natla9aw bnchalah boumhani"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:fontFamily="@font/bubblegum_sans"/>
     <TextView
+        android:textSize="10dp"
         android:id="@+id/textv_date"
         android:layout_margin="5dp"
         android:layout_alignParentRight="true"
@@ -44,5 +65,6 @@
         android:text="20/05/2019"
         android:layout_below="@id/contenue_commentaire"
         />
-
+        </RelativeLayout>
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
 </RelativeLayout>

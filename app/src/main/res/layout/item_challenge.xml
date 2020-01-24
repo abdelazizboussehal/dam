@@ -43,13 +43,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvdatestart"
-                android:text="Crée le : Dim Dec 01 18:10:45"
+                android:text="13/12/2011"
                 android:layout_toRightOf="@id/img_chlng"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_alignBottom="@id/img_chlng"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
+                android:gravity="center"
+                app:fontFamily="@font/bubblegum_sans"
                 />
             <com.github.florent37.shapeofview.shapes.ArcView
                 android:layout_weight="1"
@@ -57,7 +59,7 @@
                 android:layout_height="match_parent"
                 android:elevation="4dp"
                 app:shape_arc_cropDirection="outside"
-                app:shape_arc_height="20dp"
+                app:shape_arc_height="7dp"
                 app:shape_arc_position="left"
                 >
                 <TextView
@@ -66,10 +68,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tvdateEnd"
-                    android:text="Crée le : Dim Dec 01 18:10:45"
+                    android:text="12/1é/20120"
                     android:layout_toRightOf="@id/img_chlng"
                     android:layout_alignBottom="@id/img_chlng"
                     android:background="@color/red_error"
+                    android:gravity="center"
+                    app:fontFamily="@font/bubblegum_sans"
                     />
             </com.github.florent37.shapeofview.shapes.ArcView>
         </TableRow>

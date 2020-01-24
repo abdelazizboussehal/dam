@@ -2,7 +2,9 @@ package com.example.testfragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,11 +40,12 @@ public class ChallengeDetailler extends AppCompatActivity {
     ImageView imageView;
     ListView listViewCommentire;
     EditText editText;
-    Button commenter;
+    ImageView commenter;
     Challenge challenge;
     Comments comments;
     List<Comments> list;
     AdapaterListCommentaire adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,8 @@ public class ChallengeDetailler extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         challenge = (Challenge) bundle.getSerializable("challenge");
+        Client client = (Client) bundle.getSerializable("client");
+        challenge.setrClient(client);
 
         textViewTitre = findViewById(R.id.txtv_titre_challenge);
         textViewadress = findViewById(R.id.txtv_address);
@@ -59,15 +64,19 @@ public class ChallengeDetailler extends AppCompatActivity {
         listViewCommentire = findViewById(R.id.ListvewText_commentaire);
         editText = findViewById(R.id.edt_commentaire);
         commenter = findViewById(R.id.btn_comment);
+        if (challenge.getrClient() != null)
+            textViewTitre.setText(challenge.getrClient().getUserName());
         commenter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String content = editText.getText().toString();
                 comments = new Comments(content, null, 0);
-                comments.addClient(new Client(5));
+                SharedPreferences sharedPref = getSharedPreferences("aziz", Context.MODE_PRIVATE);
+                int id = sharedPref.getInt("id", -1);
+                comments.addClient(new Client(id));
 
 
-                challenge.setrClient(new Client(5));
+                challenge.setrClient(new Client(id));
                 creeChallenge();
 
             }
@@ -76,15 +85,14 @@ public class ChallengeDetailler extends AppCompatActivity {
         if (challenge.getrPhoto().iterator().hasNext()) {
             Picasso.with(this).load("http://192.168.137.1:80/aziz/" + challenge.getrPhoto().iterator().next()).into(imageView);
         }
-
         //  textViewTitre.setText(challenge.getId());
         textViewadress.setText(challenge.getAddress().toString());
         textViewdatestart.setText(challenge.getStartingDate());
         textViewdateend.setText(challenge.getEndingDate());
         list = new ArrayList<>();
 
-        if(!challenge.getrComments().isEmpty())
-        list.addAll(challenge.getrComments());
+        if (!challenge.getrComments().isEmpty())
+            list.addAll(challenge.getrComments());
 
         adapter = new AdapaterListCommentaire(this, R.layout.item_commentaire, list);
         listViewCommentire.setAdapter(adapter);

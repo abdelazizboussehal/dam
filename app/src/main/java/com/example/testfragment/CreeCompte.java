@@ -1,7 +1,10 @@
 package com.example.testfragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,6 +33,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 
 public class CreeCompte extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+    String version;
     ActionProcessButton creecompte;
     MaterialEditText editnom, editprenom, editemail, editpassword, editdate;
     EditText editphonrnumber;
@@ -38,6 +42,7 @@ public class CreeCompte extends AppCompatActivity implements DatePickerDialog.On
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        if(view ==dpd)
         editdate.setText(date);
     }
 
@@ -59,12 +64,6 @@ public class CreeCompte extends AppCompatActivity implements DatePickerDialog.On
         editphonrnumber = findViewById(R.id.etxt_num);
         editdate = findViewById(R.id.etxt_date);
         spinner.setAdapter(spinnerArrayAdapter);
-        creecompte.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-            }
-        });
         creecompte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,8 +96,14 @@ public class CreeCompte extends AppCompatActivity implements DatePickerDialog.On
                 {
                     creecompte.setMode(ActionProcessButton.Mode.PROGRESS);
                     creecompte.setProgress(100);
+                    try {
+                        PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        version = pInfo.versionName;
+                    } catch (PackageManager.NameNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     Client client = new Client(1, nom, prenom, username
-                            , password, null, phone, "s");
+                            , password, editdate.getText().toString(), phone, version);
 
 
                     creeCompteRequtte(client);

@@ -79,16 +79,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="id"
-            android:id="@+id/edt_id"
-            android:textSize="25dp"
-            android:layout_margin="15dp"
-            android:inputType="text"
-            android:textStyle="bold"
-            />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,8 +127,8 @@
             android:id="@+id/edt_dateStart"
             android:textSize="25dp"
             android:layout_margin="15dp"
-            android:inputType="date"
             android:textStyle="bold"
+            android:inputType="text"
             />
         <EditText
             android:layout_width="match_parent"
@@ -146,15 +137,29 @@
             android:id="@+id/edt_dateEnd"
             android:textSize="25dp"
             android:layout_margin="15dp"
-            android:inputType="date"
+            android:inputType="text"
             android:textStyle="bold"
             />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btprendrephot"
             android:text="photo"
-            />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/btprendrephot"
+                android:layout_margin="5dp"
+                android:src="@drawable/lion"
+                android:id="@+id/src_photo"
+                />
+
+        </RelativeLayout>
 
 
     </LinearLayout>

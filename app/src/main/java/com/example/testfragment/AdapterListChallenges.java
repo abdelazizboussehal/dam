@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.testfragment.model.Challenge;
 import com.example.testfragment.model.Challengeee;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class AdapterListChallenges extends ArrayAdapter<Challenge> {
         this.items = items;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)throws NullPointerException {
         // Get the data item for this position
         Challenge item = items.get(position);
         // Check if an existing view is being reused, otherwise inflate the view
@@ -41,12 +42,17 @@ public class AdapterListChallenges extends ArrayAdapter<Challenge> {
         ImageView img=layout.findViewById(R.id.img_chlng);
         TextView tvdates = layout.findViewById(R.id.tvdatestart);
         TextView tvdatee = layout.findViewById(R.id.tvdateEnd);
-
+        TextView user = layout.findViewById(R.id.txtv_user);
+        if(!item.getrPhoto().isEmpty())
+            Picasso.with(getContext()).load("http://192.168.137.1:80/photo/"+item.getrPhoto().iterator().next().getPath()).into(img);
         // Populate the data into the template view using the data object
+        user.setText(item.getrClient().getUserName());
         Drawable drawable  = getContext().getResources().getDrawable(R.drawable.lieu1);
         img.setImageDrawable(drawable);
-        tvdates.setText(item.toString());
-        tvdatee.setText(item.toString());
+        if(item.getCreatedDate()!=null)
+        tvdates.setText(item.getStartingDate().toString());
+        if(item.getEndingDate()!=null)
+        tvdatee.setText(item.getEndingDate().toString());
         // Return the completed view to render on screen
         return layout;
     }

@@ -129,7 +129,7 @@ public class SplashActivity extends AppCompatActivity {
                             Manifest.permission.ACCESS_FINE_LOCATION}, 99);
                 } else {
                     recupererPosition();
-                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences sharedPref = getSharedPreferences("aziz",Context.MODE_PRIVATE);
                     int id = sharedPref.getInt("id", -1);
                     if (id < 0) {
                         Toast.makeText(getApplicationContext(), "deja autorise", Toast.LENGTH_SHORT).show();

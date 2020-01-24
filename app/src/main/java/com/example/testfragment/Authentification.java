@@ -1,6 +1,8 @@
 package com.example.testfragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -125,6 +127,13 @@ public class Authentification extends AppCompatActivity {
                         List<Client> clients=Client.getClientsFromJson(response);
                         if(clients.size()>0){
                             Client client=clients.get(0);
+                            SharedPreferences sharedPref = getSharedPreferences("aziz",Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt("id", client.getId());
+                            editor.putString("username", client.getUserName());
+                            editor.commit();
+                            editor.apply();
+
                             Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
                             startActivity(intent);
                             finish();

@@ -66,6 +66,7 @@ public class FragementListChallenges extends Fragment {
                 Intent intent = new Intent(getActivity(), ChallengeDetailler.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("challenge", (Serializable) noms.get(i));
+                bundle.putSerializable("client", (Serializable) noms.get(i).getrClient());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

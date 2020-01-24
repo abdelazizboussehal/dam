@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Photo implements Serializable {
     private int id;
     private String path;
-    private Date createDate;
-    public Photo(int id, String path, Date createDate) {
+    private String createDate;
+    public Photo(int id, String path, String createDate) {
         this.id = id;
         this.path = path;
         this.createDate = createDate;
@@ -33,11 +33,11 @@ public class Photo implements Serializable {
         this.path = path;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 

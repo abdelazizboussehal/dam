@@ -63,8 +63,16 @@
         </ImageView>
 
     </RelativeLayout>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="comments"
+        android:id="@+id/btn_comment"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
     <EditText
+        android:layout_toLeftOf="@id/btn_comment"
         android:id="@+id/edt_commentaire"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +80,7 @@
         android:gravity="center"
         android:layout_alignParentBottom="true"
         />
+
     <ListView
         android:layout_margin="5dp"
         android:layout_below="@id/relative_imag"

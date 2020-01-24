@@ -33,31 +33,38 @@ import java.util.Set;
 public class FragementListChallenges extends Fragment {
     List<Challenge> noms;
     AdapterListChallenges myada;
-    public FragementListChallenges(){
+
+    public FragementListChallenges() {
         super();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getActivity().setTitle("List challenegs");
-        View view= inflater.inflate(R.layout.fragement_list_challenges, container, false);
-        noms=new ArrayList<>();
-        noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
+        View view = inflater.inflate(R.layout.fragement_list_challenges, container, false);
+        try {
+            Thread.sleep(1100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        noms = new ArrayList<>();
+        /*noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
                 ,"constantine","21210","algeria")));
         noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
                 ,"constantine","21210","algeria")));
         noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
                 ,"constantine","21210","algeria")));
         noms.add(new Challenge(1,"12/12/2020","2/1/2020","12/12/2020",new Address(12,1,1,"cnep"
-                ,"constantine","21210","algeria")));
-                ListView listView=(ListView)view.findViewById(R.id.ListvewText);
-        myada=new AdapterListChallenges(getActivity(),R.layout.item_challenge,noms);
+                ,"constantine","21210","algeria")));*/
+        ListView listView = (ListView) view.findViewById(R.id.ListvewText);
+        myada = new AdapterListChallenges(getActivity(), R.layout.item_challenge, noms);
         listView.setAdapter(myada);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent=new Intent(getActivity(),ChallengeDetailler.class);
-                Bundle bundle =new Bundle();
+                Intent intent = new Intent(getActivity(), ChallengeDetailler.class);
+                Bundle bundle = new Bundle();
                 bundle.putSerializable("challenge", (Serializable) noms.get(i));
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -67,7 +74,7 @@ public class FragementListChallenges extends Fragment {
         return view;
     }
 
-    public void recupererAllChallenge(){
+    public void recupererAllChallenge() {
         String url = "http://192.168.137.1:3000/challenge/";
 
         RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -82,7 +89,7 @@ public class FragementListChallenges extends Fragment {
                         List<Challenge> challengeSet = new ArrayList<>();
                         challengeSet = Challenge.getChallengesFromJson(response);
                         noms.addAll(challengeSet);
-
+                        queue.getCache().clear();
                         myada.notifyDataSetChanged();
 
                     }
@@ -90,6 +97,7 @@ public class FragementListChallenges extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                queue.getCache().clear();
             }
         });
 

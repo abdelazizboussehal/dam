@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.testfragment.model.Challenge;
@@ -37,13 +38,15 @@ public class AdapterListChallenges extends ArrayAdapter<Challenge> {
             LayoutInflater inflater = activity.getLayoutInflater();
             layout=inflater.inflate(itemResourceId,parent,false);
         }
-        CircleImageView img=(CircleImageView)layout.findViewById(R.id.img_chlng);
-        TextView tvName = (TextView) layout.findViewById(R.id.tvdate);
+        ImageView img=layout.findViewById(R.id.img_chlng);
+        TextView tvdates = layout.findViewById(R.id.tvdatestart);
+        TextView tvdatee = layout.findViewById(R.id.tvdateEnd);
 
         // Populate the data into the template view using the data object
         Drawable drawable  = getContext().getResources().getDrawable(R.drawable.lieu1);
         img.setImageDrawable(drawable);
-        tvName.setText(item.toString());
+        tvdates.setText(item.toString());
+        tvdatee.setText(item.toString());
         // Return the completed view to render on screen
         return layout;
     }

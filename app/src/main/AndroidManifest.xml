@@ -30,6 +30,7 @@
 
         </activity>
         <activity android:name=".CreeCompte" />
+        <activity android:name=".FormulaireAdress" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

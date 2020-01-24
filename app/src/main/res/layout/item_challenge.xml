@@ -1,34 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/re"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_margin="5dp">
+    <com.github.florent37.shapeofview.shapes.RoundRectView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_chlng"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+        android:layout_height="match_parent"
+        android:elevation="4dp"
+        app:shape_roundRect_bottomLeftRadius="10dp"
+        app:shape_roundRect_bottomRightRadius="10dp"
+        app:shape_roundRect_topLeftRadius="10dp"
+        app:shape_roundRect_topRightRadius="10dp"
 
-
-            />
+        app:shape_roundRect_borderColor="@android:color/black"
+        app:shape_roundRect_borderWidth="2dp"
+        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvdate"
-            android:text="Crée le : Dim Dec 01 18:10:45"
-            android:layout_toRightOf="@id/img_chlng"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_alignBottom="@id/img_chlng"
+            android:background="@color/solid_black"
+            android:id="@+id/txtv_user"
+            android:textColor="@color/mdtp_white"
+            app:fontFamily="@font/bubblegum_sans"
+            android:text="Aziz boussehal"
+            android:gravity="center"
+
             />
+        <TableRow
+            android:layout_alignParentBottom="true"
+            android:background="@color/solid_black"
+            android:id="@+id/tbrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvdatestart"
+                android:text="Crée le : Dim Dec 01 18:10:45"
+                android:layout_toRightOf="@id/img_chlng"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignBottom="@id/img_chlng"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                />
+            <com.github.florent37.shapeofview.shapes.ArcView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="4dp"
+                app:shape_arc_cropDirection="outside"
+                app:shape_arc_height="20dp"
+                app:shape_arc_position="left"
+                >
+                <TextView
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tvdateEnd"
+                    android:text="Crée le : Dim Dec 01 18:10:45"
+                    android:layout_toRightOf="@id/img_chlng"
+                    android:layout_alignBottom="@id/img_chlng"
+                    android:background="@color/red_error"
+                    />
+            </com.github.florent37.shapeofview.shapes.ArcView>
+        </TableRow>
+    <ImageView
+        android:layout_below="@id/txtv_user"
+        android:layout_above="@id/tbrow"
+        android:id="@+id/img_chlng"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     </RelativeLayout>
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
 
 </RelativeLayout>

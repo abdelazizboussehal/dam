@@ -3,17 +3,21 @@ package com.example.testfragment.model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Client extends User {
+public class Client extends User implements Serializable {
     private String phoneNumber,androidVersion;
     private Set<Challenge> rChallenge;
 
     public Client() {
+    }
+    public Client(int id) {
+        setId(id);
     }
 
     public Client(int id, String lastname, String fisrtName, String userName, String password, Date birthDate, String phoneNumber, String androidVersion) {

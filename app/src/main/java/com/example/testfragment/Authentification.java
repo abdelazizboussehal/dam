@@ -35,6 +35,7 @@ public class Authentification extends AppCompatActivity {
     MaterialEditText username , password;
     String stringuUername,stringpassword;
     ActionProcessButton btnSignIn;
+
    // ActionProcessButton btnSignIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +89,10 @@ public class Authentification extends AppCompatActivity {
                     btnSignIn.setMode(ActionProcessButton.Mode.ENDLESS);
 // set progress > 0 to start progress indicator animation
                     btnSignIn.setProgress(1);
-             //       authtification(stringuUername,stringpassword);
-                    Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
-                    startActivity(intent);
+                    authtification(stringuUername,stringpassword);
+             //       Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
+               //     startActivity(intent);
+                 //   finish();
                 }
 
 
@@ -112,7 +114,7 @@ public class Authentification extends AppCompatActivity {
     }
 
     public void authtification(final String user, final String password){
-        String url = "http://192.168.137.1:3000/client/";
+        String url = "http://192.168.137.1:3000/client/auth";
 
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -126,9 +128,11 @@ public class Authentification extends AppCompatActivity {
                             Intent intent=new Intent(getApplicationContext(),DrawerNavigationView.class);
                             startActivity(intent);
                             finish();
+                            queue.getCache().clear();
                         }
                         else
                         {
+                            queue.getCache().clear();
                             btnSignIn.setProgress(0);
                             Toast.makeText(getApplicationContext(),"incorrect mdp or password",Toast.LENGTH_LONG).show();
                         }
@@ -141,6 +145,7 @@ public class Authentification extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
                         btnSignIn.setProgress(0);
+                        queue.getCache().clear();
                     }
                 })
         {

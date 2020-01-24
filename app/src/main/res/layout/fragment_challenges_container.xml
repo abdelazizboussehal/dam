@@ -3,17 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <com.github.florent37.shapeofview.shapes.ArcView
+        android:id="@+id/table_layoutt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:shape_arc_cropDirection="outside"
+        app:shape_arc_height="10dp"
+        app:shape_arc_position="bottom"
+        >
     <com.google.android.material.tabs.TabLayout
+        android:background="@color/colorPrimary"
+        app:tabTextColor="@color/mdtp_white"
         android:id="@+id/table_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabMode="fixed"
         />
+    </com.github.florent37.shapeofview.shapes.ArcView>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/table_layout"
+        android:layout_below="@id/table_layoutt"
         />
 </RelativeLayout>

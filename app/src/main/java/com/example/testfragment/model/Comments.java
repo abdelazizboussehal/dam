@@ -1,18 +1,19 @@
 package com.example.testfragment.model;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-public class Comment implements Serializable {
+public class Comments implements Serializable {
 private int id;
 private String content;
 private Date creationDate ;
 private int isEnabled;
-    public Comment() {
+    public Comments() {
     }
 
-    public Comment(String content, Date creationDate, int isEnabled) {
+    public Comments(String content, Date creationDate, int isEnabled) {
         this.id = id;
         this.content = content;
         this.creationDate = creationDate;
@@ -73,9 +74,12 @@ private int isEnabled;
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return id == comment.id;
+        Comments comments = (Comments) o;
+        return id == comments.id;
     }
-
+    public String tojson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 
 }

@@ -95,17 +95,25 @@
                 android:textSize="15dp"
                 app:fontFamily="@font/bubblegum_sans" />
         </RelativeLayout>
-
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:shape_roundRect_bottomLeftRadius="15dp"
+            app:shape_roundRect_bottomRightRadius="15dp"
+            app:shape_roundRect_topLeftRadius="15dp"
+            app:shape_roundRect_topRightRadius="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="16dp"
+            >
 
         <com.dd.processbutton.iml.ActionProcessButton
             android:id="@+id/bt_connectez_vous"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="16dp"
-            android:padding="15dp"
+
 
             android:text=" connectez-vous "
             android:textColor="@android:color/white"
@@ -114,6 +122,7 @@
             app:pb_colorPressed="@color/colorPrimary"
 
             />
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
 
 
         <RelativeLayout

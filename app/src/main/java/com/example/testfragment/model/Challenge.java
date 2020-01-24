@@ -1,19 +1,12 @@
 package com.example.testfragment.model;
 
-import android.os.Build;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 public class Challenge implements Serializable {
@@ -28,7 +21,7 @@ public class Challenge implements Serializable {
     private Set<Photo> rPhoto=new HashSet<>();
     private Address address;
     private Set<Note> rNote=new HashSet<>();
-    private Set<Comment> rComment=new HashSet<>();
+    private Set<Comments> rComments =new HashSet<>();
 
     public Set<Client> getRrClient() {
         return rrClient;
@@ -167,12 +160,12 @@ public class Challenge implements Serializable {
         this.rNote = rnote;
     }
 
-    public Set<Comment> getrComment() {
-        return rComment;
+    public Set<Comments> getrComments() {
+        return rComments;
     }
 
-    public void setrComment(Set<Comment> rComment) {
-        this.rComment = rComment;
+    public void setrComments(Set<Comments> rComments) {
+        this.rComments = rComments;
     }
 
     public void addNote(Note note){
@@ -187,16 +180,16 @@ public class Challenge implements Serializable {
         }
     }
 
-    public void addComment(Comment comment){
-        if(!getrComment().contains(comment))
+    public void addComment(Comments comments){
+        if(!getrComments().contains(comments))
         {
-            getrComment().add(comment);
+            getrComments().add(comments);
         }
     }
 
-    public void removeComment(Comment comment){
-        if(getrComment().contains(comment)){
-            getrComment().remove(comment);
+    public void removeComment(Comments comments){
+        if(getrComments().contains(comments)){
+            getrComments().remove(comments);
         }
     }
 

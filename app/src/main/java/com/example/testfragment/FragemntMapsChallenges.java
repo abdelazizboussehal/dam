@@ -54,6 +54,7 @@ public class FragemntMapsChallenges extends Fragment {
     TextView textViewDistance;
     TileRendererLayer tileRendererLayer;
     LatLong myPosition;
+    static  List<Challenge> challengeSet;
     public FragemntMapsChallenges(){
         super();
     }
@@ -177,11 +178,12 @@ public class FragemntMapsChallenges extends Fragment {
                         drawPath(latLongs);
                         textViewDistance.setText("distance "+d+" km");
                         textViewDistance.setVisibility(View.VISIBLE);
+                        queue.getCache().clear();
                     }
                 },  new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                queue.getCache().clear();
                 Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
@@ -255,31 +257,17 @@ public class FragemntMapsChallenges extends Fragment {
                     public void onResponse(String response) {
                         List<LatLong> path = new ArrayList<>();
                         JSONObject jsonObj = null;
-                        List<Challenge> challengeSet = new ArrayList<>();
-
-                            /*
-                            try {
-                            JSONArray maneuversObj = new JSONArray(response);
-                            for(int i=0;i<maneuversObj.length();i++){
-                                double lat=maneuversObj.getJSONObject(i).getJSONObject("address")
-                                        .getDouble("latitude");
-                                double lon=maneuversObj.getJSONObject(i).getJSONObject("address")
-                                        .getDouble("longitude");
-                                int id=maneuversObj.getJSONObject(i).getInt("id");
-                                challengeSet.add(new Challenge(id,lat,lon));
-                                } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                                */
+                        challengeSet = new ArrayList<>();
                         challengeSet = Challenge.getChallengesFromJson(response);
                         drawAllchallehnge(challengeSet);
-
+                        queue.getCache().clear();
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                queue.getCache().clear();
             }
         });
 
@@ -298,7 +286,10 @@ public class FragemntMapsChallenges extends Fragment {
             public boolean onTap(LatLong geoPoint, Point viewPos, Point tapPoint){
                 if (contains(viewPos, tapPoint)) {
 
+                    if(myPosition!=null)
                     desingerChemin(myPosition,geoPoint);
+                    else
+                        Toast.makeText(getContext(),"choisir position",Toast.LENGTH_LONG).show();
                     return true;
                 }
                 return false;
@@ -310,7 +301,7 @@ public class FragemntMapsChallenges extends Fragment {
     }
 
 
-    public void drawAllchallehnge(List<Challenge> challenges){
+    public void drawAllchallehnge(List<Challenge> challenges)throws NullPointerException{
         if(!challenges.isEmpty()) {
             for (int i = 0; i < challenges.size(); i++) {
                 LatLong latLong = new LatLong(challenges.get(i).getAddress().getLatitude(),challenges.get(i).getAddress().getLongitude());

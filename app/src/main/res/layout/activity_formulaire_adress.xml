@@ -5,12 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.testfragment.FormulaireAdress">
+    <TableRow
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tabrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="4dp"
+            app:shape_roundRect_bottomLeftRadius="15dp"
+            app:shape_roundRect_bottomRightRadius="15dp"
+            app:shape_roundRect_topLeftRadius="15dp"
+            app:shape_roundRect_topRightRadius="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="16dp"
+            >
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/btannuler"
+                android:text="annuler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:pb_colorPressed="@color/colorPrimary" />
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="4dp"
+            app:shape_roundRect_bottomLeftRadius="15dp"
+            app:shape_roundRect_bottomRightRadius="15dp"
+            app:shape_roundRect_topLeftRadius="15dp"
+            app:shape_roundRect_topRightRadius="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="16dp"
+            >
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/btPublier"
+                android:text="publier"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:pb_colorPressed="@color/colorPrimary" />
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+    </TableRow>
+    <ScrollView
+        android:layout_above="@id/tabrow"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="id"
+            android:id="@+id/edt_id"
+            android:textSize="25dp"
+            android:layout_margin="15dp"
+            android:inputType="text"
+            android:textStyle="bold"
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,24 +155,9 @@
             android:id="@+id/btprendrephot"
             android:text="photo"
             />
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="annuler"
-                />
-            <Button
-                android:id="@+id/btPublier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="publier"
-                />
 
-        </TableRow>
 
     </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
